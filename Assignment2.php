@@ -16,8 +16,6 @@
 		$age = $_POST['Age'];
 
 		try {
-			//$con = new PDO ("mysql:host=localhost;dbname=tvay", $username, $password);
-			//$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			
 			$connectionstring = mysql_connect($servername,$username,$password)
         	or die('Could not connect: ' . mysql_error());
@@ -28,10 +26,12 @@
 			$Insert = "INSERT INTO assignment1 (FirstName, LastName, Sex, School, Age)
 			 VALUES ('$first','$last', '$sex', '$school','$age' )";
 
+            //$PostInsert = "INSERT INTO posts (PostText) VALUES ('$post')";
+
 			$results = mysql_query($Insert)
         	or die('could not insert into database: ' . mysql_error());
 
-        	$Query = 'SELECT * FROM assignment1';
+        	$Query = 'SELECT FirstName, LastName, Sex, School, Age FROM assignment1';
 			$Sjsu = 'SELECT * FROM assignment1 WHERE School = "San Jose State University"';
 			$Female = 'SELECT * FROM assignment1 WHERE Sex = "Female"';
 			$Age21 = 'SELECT * FROM assignment1 WHERE Age > 21';
@@ -54,6 +54,7 @@
         	print "\t<td>Sex</td>\n";
         	print "\t<td>School</td>\n";
         	print "\t<td>Age</td>\n";
+            print "\t<td>Post</td>\n";
         	while($dataArray = mysql_fetch_array($querysjsu, MYSQL_ASSOC))
    			{
      			print "<tr>\n";
