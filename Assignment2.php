@@ -22,7 +22,7 @@
 			$connectionstring = mysql_connect($servername,$username,$password)
         	or die('Could not connect: ' . mysql_error());
 
-        	mysql_select_db('tvay')
+        	mysql_select_db('cs174')
         	or die('Could not select database: ' . mysql_error());
 
 			$Insert = "INSERT INTO assignment1 (FirstName, LastName, Sex, School, Age)
