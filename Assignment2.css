@@ -1,0 +1,51 @@
+/* This is the style for the body element */
+body {
+     color: blue;  /* This is the font color */
+     background-color: white;
+ }
+ h1 {
+     color: green;
+
+}
+ h2 {
+     color: red;
+     background-color: yellow;
+ }
+ p{
+	 color:brown;
+	 
+ }
+ 
+/*class*/
+.intro{
+     border: 5px solid pink;
+}
+/*ID*/
+#special{
+	border: 1px solid black
+}
+/* attributes*/
+ input[type="text"] {
+	 color: white;
+     background-color: orange;
+}
+ p[class]{
+     color:navy;
+}
+
+/*Link style*/
+a:link {
+    color: red;
+}
+a:visited {
+    color: red;
+}
+a:focus {
+    color: purple;
+}
+a:hover {
+    color: green;
+}   
+a:active {
+    color: blue;
+}

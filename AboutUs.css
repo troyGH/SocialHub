@@ -1,0 +1,25 @@
+/* This is the style for the body element */
+h1 {
+    text-align: center;
+    color: red;
+    font-family: "Lucida grande", sans-serif;
+}
+
+h3 {
+    text-align: center;
+    color: orange;
+    font-family: "Lucida grande", sans-serif;
+}
+
+body {
+    text-align: center;
+    font-family: "Lucida grande", sans-serif;
+}
+
+#name {
+    color: blue;
+}
+
+.body {
+    color: green;
+}
