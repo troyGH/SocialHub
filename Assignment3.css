@@ -43,3 +43,35 @@ footer{
 	font-family: Arial;
 	float: bottom;
 }
+/*ID*/
+#special1{
+	 text-align: center;
+    color: red;
+    font-family: "Lucida grande", sans-serif;
+}
+#special2{
+	 text-align: center;
+    color: orange;
+    font-family: "Lucida grande", sans-serif;
+}
+#special3{
+	 text-align: center;
+    font-family: "Lucida grande", sans-serif;
+}
+
+/*Link style*/
+a:link {
+    color: red;
+}
+a:visited {
+    color: red;
+}
+a:focus {
+    color: purple;
+}
+a:hover {
+    color: green;
+}   
+a:active {
+    color: blue;
+}

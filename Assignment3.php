@@ -6,8 +6,8 @@
 	$dbusername = "root";
 	$dbpassword = "jeff1239210";
 
-	$username = $_POST['userName'];
-	$password = $_POST['password'];
+	$username =  isset($_POST['userName']) ? $_POST['userName'] : '';
+	$password = isset($_POST['password']) ? $_POST['password'] : '';
 	$email = isset($_POST['email']) ? $_POST['email'] : '';
 	$newusername = isset($_POST['createdUsername']) ? $_POST['createdUsername'] : '';
 	$firstpassword = isset($_POST['firstPassword']) ? $_POST['firstPassword'] : '';
@@ -58,8 +58,9 @@
 	catch(PDOException $ex) {
 			echo 'ERROR: ' . $ex->getMessage();
 	}
-
 	?>
+	<br>
+	<a href="Assignment3.html"> Back to Login Page </a>
 
 </body>
 </html>
