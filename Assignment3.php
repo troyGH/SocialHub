@@ -7,12 +7,10 @@
 	
 	$servername = "localhost";
 	$dbusername = "root";
-	$dbpassword = "jeff1239210";
+	$dbpassword = "";
 
 	$username =  isset($_POST['userName']) ? $_POST['userName'] : '';
 	$_SESSION["username"] = $username;
-	echo $_SESSION["username"];
-	echo "11111111111";
 	
 	$password = isset($_POST['password']) ? $_POST['password'] : '';
 	$_SESSION["passward"] = $password;
@@ -39,7 +37,7 @@
 		$connectionstring = mysql_connect($servername,$dbusername,$dbpassword)
         	or die('Could not connect: ' . mysql_error());
 
-        mysql_select_db('social_network')
+        mysql_select_db('social network')
         	or die('Could not select database: ' . mysql_error());
         //create new user
         if(empty($username) && empty($password)) {
