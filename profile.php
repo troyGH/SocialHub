@@ -6,7 +6,7 @@
 	session_start();
 	$servername = "localhost";
 	$dbusername = "root";
-	$dbpassword = "jeff1239210";
+	$dbpassword = "";
      
 	$temp = $_SESSION["username"];
 	echo $temp;
@@ -15,12 +15,17 @@
 		$connectionstring = mysql_connect($servername,$dbusername,$dbpassword)
         	or die('Could not connect: ' . mysql_error());
 
-        mysql_select_db('social_network')
+        mysql_select_db('social network')
         	or die('Could not select database: ' . mysql_error());
 
     
 		
-			$query = "SELECT USERID FROM user WHERE  Username = '$temp'"
+		$query = 
+                "SELECT URL, FirstName, LastName, Age, City, State, Occupation 
+                FROM profile 
+                INNER JOIN userprofile ON userprofile.ProfileID = profile.ProfileID
+                INNER JOIN user ON user.UserID = userprofile.UserID
+                WHERE User.Username = '$temp'";
         	$queryexe = mysql_query($query)
         		or die('Could not query database: ' . mysql_error());
              
