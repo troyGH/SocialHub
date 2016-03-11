@@ -20,4 +20,18 @@ User recieves 0 to many comments.
 A comment is on 1 to 1 profile.
 A profile has 0 to many comments.
 
-Using the site:
+To execute this assignment 3:
+Precondition:
+Import the .sql dump file
+Open profile.php and assignment3.php, specify the correct dbusername, dbpassword, mysql database name.
+Steps:
+1. Open assignment3.html.
+2. Register for an account, remember the username and password.
+3. Once finished, login using the username and password.
+4. Follow the links to view profile.
+5. Content from registering info should be displayed.
+
+Database has existing data. For testing, this following can be used to login:  
+Username: troynguyen 
+Password: 123
+
