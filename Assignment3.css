@@ -44,21 +44,24 @@ footer{
 	float: bottom;
 }
 /*ID*/
-#special1{
-	 text-align: center;
+.red{
+	
     color: red;
-    font-family: "Lucida grande", sans-serif;
+  
 }
-#special2{
-	 text-align: center;
+.orange{
+	
     color: orange;
-    font-family: "Lucida grande", sans-serif;
+    
 }
-#special3{
+.special{
 	 text-align: center;
     font-family: "Lucida grande", sans-serif;
 }
-
+.special4{
+	text-align: left
+	font-family: "Lucida grande", sans-serif;
+}
 /*Link style*/
 a:link {
     color: red;
