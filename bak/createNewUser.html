@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Login</title>
+	 <link rel="stylesheet" href="Style.css" />
+	 <script type = "text/javascript">
+        function validate()
+        {   
+            var name  = document.getElementById("username").value;  
+			var errors = "";
+            if(name == "" || name == null){
+			    errors += "UserName must be filled out.\n";
+			}
+			
+			var pass = document.getElementById("pass1").value;
+			if(pass == "" || pass == null)
+			{
+				errors +="Password must be filled out.\n";
+			}
+			
+			var email = document.getElementById("email").value;
+			var emailRE = /^.+@.+\..{2,4}$/;
+			if(!emailRE.test(email))
+			{
+				errors += "Invalid email address.\n"
+			}
+			
+			var url = document.getElementById("URL").value;
+			if(url == "" || url == null)
+			{
+				errors +="URL must be filled out.\n";
+			}
+			
+			var first = document.getElementById("first").value;
+			if(first == "" || first == null)
+			{
+				errors +="Fisrtname must be filled out.\n";
+			}
+			
+			var last = document.getElementById("last").value;
+			if(last == "" || last == null)
+			{
+				errors +="Lastname must be filled out.\n";
+			}
+			
+			var city = document.getElementById("city").value;
+			if(city == "" || city == null)
+			{
+				errors +="City must be filled out.\n";
+			}
+			
+			var state = document.getElementById("state").value;
+			if(state == "" || state == null)
+			{
+				errors +="State must be filled out.\n";
+			}
+			
+			if(errors != "")
+			{
+				alert(errors);
+				return false;
+			}
+			//return false;
+        }
+		function checkPass()
+		{
+			var pass1 = document.getElementById('pass1');
+			var pass2 = document.getElementById('pass2');
+			var message = document.getElementById('checkingMessage');
+			//Set the colors we will be using ...
+			var goodColor = "#66cc66";
+			var badColor = "#ff6666";
+			//Compare the values in the password field 
+			//and the confirmation field
+			if(pass1.value == pass2.value){
+				//The passwords match. 
+				//Set the color to the good color and inform
+				//the user that they have entered the correct password 
+				pass2.style.backgroundColor = goodColor;
+				message.style.color = goodColor;
+				message.innerHTML = "Passwords Match!"
+			}else{
+				//The passwords do not match.
+				//Set the color to the bad color and
+				//notify the user.
+				pass2.style.backgroundColor = badColor;
+				message.style.color = badColor;
+				message.innerHTML = "Passwords Do Not Match!"
+			}
+		}
+    </script>
+</head>
+
+<body>
+	<header><h1>Create Your Own Account<h1></header>
+	<form action="LoginPage.php" onsubmit = "return validate()" method="post" >
+		<fieldset name="userInput">
+			<p>
+				Desired username:
+				<br>
+				<input type="text" name="createdUsername" id="username">
+				<br>
+				Password:
+				<br>
+				<input type="password" name="firstPassword" id = "pass1">
+				<br>
+				
+				Confirm password:
+				<br>
+				<input type="password" name="secondPassword" id="pass2" onkeyup="checkPass(); return false;">
+				<span id="checkingMessage" class="checkingMessage"></span>
+				<br>
+				E-mail address:
+				<br>
+				<input tyoe="text" name="email" id="email" placeholder= "xxxxx@xxx.xxx">
+				<br>
+				URL
+				<br>
+				<input tyoe="text" name="URL" id="URL">
+				<br>
+				First Name:
+				<input tyoe="text" name="FirstName" id="first">
+				Last Name:
+				<input tyoe="text" name="LastName" id="last">
+				<br>
+				Ages:
+				<input type="number" name="ages" min="1" max="100" id="ages" value="20">
+				<br>
+				City:
+				<input tyoe="text" name="City" id="city">
+				State:
+				<input tyoe="text" name="State" id="state">
+				<br>
+			</p>	
+			<p>
+                <label>Occupation</label>
+                <input type="radio" name="Occupation" value="None" checked /> None
+                <input type="radio" name="Occupation" value="Student" /> student
+				<input type="radio" name="Occupation" value="Worker" /> Worker
+            </p>
+
+			<br>
+				<input type="submit" value="Create" />
+	        <br>
+			<nav>
+		<a href="LoginPage.html"> Back to Login Page </a>
+	</nav>
+		</fieldset>
+	</form>
+
+	<footer><h2>Team TVAY<h2></footer>
+
+</body>
+</html>

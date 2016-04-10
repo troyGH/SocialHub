@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Login</title>
+	 <link rel="stylesheet" href="Style.css" />
+	 <script type = "text/javascript">
+        function validate()
+        {   
+            var name  = document.forms["loginForm"]["userName"].value;  
+            if(name == "" || name == null){
+			
+				alert("UserName must be filled out");
+				return false;
+			
+			}
+        }
+    </script>
+</head>
+
+<body>
+	<div id ="wrapper">
+		<div id ="header">
+			<header><h1>Welcome to our accounts page<h1></header>
+		</div>
+
+
+		<div id="content">
+			<form name="loginForm" action="LoginPage.php" onsubmit ="return validate()" method="post" >
+				<fieldset name="userInput">
+					<center>
+					<section>
+					
+					<p>
+						<lable>Username:</lable>
+						<input type="text" name="userName">
+						<br>
+						<lable>Password:</lable>
+						<input type="password" name="password">
+						<br>
+						<br>
+						<input type="submit" value="Login">
+			            <br>
+						<br>
+						<strong>Don't have an account?</strong>
+						<br>
+						<a href="createNewUser.html">
+		                   Create new User!
+		                 </a>
+					</p>
+					
+					<section>
+					<p>
+						<a href="Aboutus.html">
+		                   About US!!!
+		                 </a>
+					</p>
+					</center>
+				</fieldset>
+			</form>
+		</div>
+
+		<div id="footer">
+			<footer><h2>Team TVAY<h2></footer>
+		</div>
+
+</body>
+</html>

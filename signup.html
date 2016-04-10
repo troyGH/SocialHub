@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Social Hub - Social Networking Site</title>
+	 <link rel="stylesheet" href="external/style.css" />
+	 <script type = "text/javascript" src="external/JSScript.js"></script>
+</head>
+<body>
+
+	<div class="wrapper">
+		<header>
+			<canvas id="myCanvas" width="100" height="100" style="border:1px solid #d3d3d3;">
+			Your browser does not support HTML5 canvas.
+			</canvas>
+			<h1>Social Networking Site</h1>
+			<nav> 
+				<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="signup.html">Signup</a></li>
+				<li><a href="login.html">Login</a></li>
+				<li><a href="account.html">Account</a></li>
+				</ul>
+			</nav>
+		</header>	
+		
+		<section>
+			<form action="login.php" onsubmit = "return SignUpValidate()" method="post" >
+				<fieldset name="userInput">
+				<h2> Signup Form </h2>
+					<p>
+						Desired username:
+						<br>
+						<input type="text" name="createdUsername" id="username">
+						<br>
+						Password:
+						<br>
+						<input type="password" name="firstPassword" id = "pass1">
+						<br>
+						
+						Confirm password:
+						<br>
+						<input type="password" name="secondPassword" id="pass2" onkeyup="checkPass(); return false;">
+						<span id="checkingMessage" class="checkingMessage"></span>
+						<br>
+						E-mail address:
+						<br>
+						<input tyoe="text" name="email" id="email" placeholder= "xxxxx@xxx.xxx">
+						<br>
+						URL
+						<br>
+						<input tyoe="text" name="URL" id="URL">
+						<br>
+						First Name:
+						<br>
+						<input tyoe="text" name="FirstName" id="first">
+						<br>
+						Last Name:
+						<br>
+						<input tyoe="text" name="LastName" id="last">
+						<br>
+						Age:
+						<br>
+						<input type="number" name="ages" min="1" max="100" id="ages" value="20">
+						<br>
+						City:
+						<br>
+						<input tyoe="text" name="City" id="city">
+						<br>
+						State:
+						<br>
+						<input tyoe="text" name="State" id="state">
+						<br>
+					</p>	
+					<p>
+						<label>Occupation</label>
+						<input type="radio" name="Occupation" value="None" checked /> None
+						<input type="radio" name="Occupation" value="Student" /> student
+						<input type="radio" name="Occupation" value="Worker" /> Worker
+					</p>
+
+					<br>
+						<input type="submit" value="Create" onclick="passValidate()" />
+					<br>
+				</fieldset>
+			</form>
+		
+		</section>
+		
+		<footer>
+			&copy; 2016 <a href="AboutUs.html"> Team VTAY</a>. All rights reserved.
+		</footer>
+	</div>
+</body>
+</html>

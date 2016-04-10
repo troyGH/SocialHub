@@ -1,0 +1,85 @@
+body {
+	background-position: center;
+	font-family: Georgia, Times, serif;
+}
+
+.wrapper {
+	border: 2px solid #000000;
+}
+
+header {
+	position: relative;
+	display: inline;
+}
+canvas{
+	float:left;
+}
+
+userInput{
+	background-color: white;
+}
+
+nav, footer {
+	clear: both;
+	color: black;
+	background-color: #aeaca8;
+	height: 30px;
+}
+
+nav ul {
+	margin: 0px;
+	padding: 5px 0px 5px 30px;
+}
+
+nav li {
+	display: inline;
+	margin-right: 30px;
+}
+	
+a {
+	color: black;
+}
+	
+a:hover, 
+a.current {
+	color: white;
+}
+a:visited{
+	color: gold;
+}
+
+footer {
+	font-size: 80%;
+	padding: 10px 0px 0px 20px;
+	text-align: center;
+}
+h2,h3{
+	text-align: center;
+}
+
+label{
+	font-weight: bold;
+}
+/*ID*/
+.red{
+	
+    color: red;
+  
+}
+.orange{
+	
+    color: orange;
+    
+}
+.special{
+	 text-align: center;
+    font-family: "Lucida grande", sans-serif;
+}
+.special4{
+	text-align: left
+	font-family: "Lucida grande", sans-serif;
+}
+
+
+
+
