@@ -1,5 +1,5 @@
 function SignUpValidate() {
-        	return (verifyNull() && verifyEmail());
+        	return (verifyNull() && passValidate());
 }
 
 function verifyNull() {
@@ -117,6 +117,17 @@ function Loginvalidate(){
 			}
 }
 
+function productValidate() {
+	var isValid = true;
+
+	if (!document.getElementById("title").value.trim().length) {
+		alert("Product title must be filled out.");
+		isValid = false;
+	}
+
+	return isValid;
+
+}
 	
 window.onload = function(){
 	var context = document.getElementById('myCanvas').getContext('2d');

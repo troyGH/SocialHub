@@ -88,6 +88,6 @@
 	}
 	?>
 	<br>
-	<a href="login.html"> Back to Login Page </a>
+	<a href="signout.php"> Back to Login Page </a>
 </body>
 </html>

@@ -23,9 +23,34 @@
 				</ul>
 			</nav>
 		</header>	
+		<section>
 
+		<br>
+		<h2>Previous searches: </h2>
+		<br>
 
-	<section>
+		<?php
+			session_start();
+
+			//$_SESSION["productTitle"] = $productTitle;
+
+			if (empty($_SESSION['count'])) {
+				$productTitle = isset($_POST['productTitle']) ? $_POST['productTitle'] : '';
+				$_SESSION['count'] = 0;
+				$_SESSION['productList'][$_SESSION['count']] = $productTitle;
+			} else {
+				$productTitle = isset($_POST['productTitle']) ? $_POST['productTitle'] : '';
+				$_SESSION['count'] = $_SESSION['count'] + 1; 
+				$_SESSION['productList'][$_SESSION['count']] = $productTitle;			
+			}
+
+			foreach ($_SESSION['productList'] as $title) {
+				echo $title;
+				echo "<br>";
+			}
+
+		?>
+
 		<br>
 		<form action="productsession.php" method="post" onsubmit = "return productValidate()" >
 			<fieldset name="userInput">
@@ -40,8 +65,12 @@
 		</form>
 		<a href="profile.php"> View profile</a>
 		<br>	
-		<a href="signout.php"> Back to Login Page </a>
+		<a href="signout.php"> Back to Login Page (Log out)</a>
+
 	</section>
 	</div>
-</body>
+	</body>
 </html>
+
+
+
