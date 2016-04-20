@@ -128,7 +128,7 @@ function productValidate() {
 	return isValid;
 
 }
-	
+
 window.onload = function(){
 	var context = document.getElementById('myCanvas').getContext('2d');
 	  //shadow

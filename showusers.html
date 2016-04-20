@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Social Hub - Social Networking Site</title>
+	 <link rel="stylesheet" href="external/style.css" />
+	 <script type = "text/javascript" src="external/JSScript.js">
+    function showUsers(str) {
+        if (str == "")
+            document.getElementById("txtHint").innerHTML = "";
+            return;
+        } else {
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                }
+            };
+            xmlhttp.open("GET","showusers.php?q="+str, true);
+            xmlhttp:send();
+        }
+    }
+     </script>
+
+</head>
+<body>
+    <section>
+        <div class="wrapper">
+        <header>
+            <canvas id="myCanvas" width="100" height="100" style="border:1px solid #d3d3d3;">
+            Your browser does not support HTML5 canvas.
+            </canvas>
+            <h1>Social Networking Site</h1>
+            <nav> 
+                <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="signup.html">Signup</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="account.html">Account</a></li>
+                </ul>
+            </nav>
+        </header>   
+
+        <!--Assignment 6 - AJAX -->
+        <form>
+            <select name="users" onchange="showUsers(this.value)">
+                <option value="">Select a user: </option>
+                <option value="Aidan">Aidan Nguyen</option>
+                <option value="Yu-Kai">Yu-Kai Huang</option>
+                <option value="Troy">Troy Nguyen</option>
+                <option value="Vinay">Vinay Ponnaganti</option>
+            </select>
+        </form>
+
+        <br><div id="txtHint"><b>Information here.</b></div>
+        <br>
+        <br>
+        <a href="profile.php"> View profile</a>
+        <br>    
+        <a href="signout.php"> Back to Login Page (Log out)</a>
+    </section>
+
+</body>
+</html>
+
