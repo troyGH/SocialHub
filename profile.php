@@ -35,6 +35,8 @@
         $con = new PDO("mysql:host=localhost;dbname=social_network", $dbusername, $dbpassword);
         $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+        
+        
        $query = 
                 "SELECT URL, FirstName, LastName, Age, City, State, Occupation 
                 FROM profile 

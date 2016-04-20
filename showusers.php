@@ -8,39 +8,27 @@
 </head>
 <body>
 <?php
-    $q = $_GET['q'];
+    $q = $_GET["q"];
 
     include 'connection.php';
+
+    $temp = $_SESSION["username"];
 
     try {
 		$con = new PDO("mysql:host=localhost;dbname=social_network", $dbusername, $dbpassword);
         $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
-        //$query = "SELECT * FROM profile WHERE profile.FirstName = '$q'";
-        //$queryexe = $con->query($query);
+        $query = 
+                "SELECT URL, FirstName, LastName, Age, City, State, Occupation 
+                FROM profile 
+                INNER JOIN userprofile ON userprofile.ProfileID = profile.ProfileID
+                INNER JOIN user ON user.UserID = userprofile.UserID
+                WHERE User.Username = '$temp'";
+        
+        $result = $con->query($query)
 
-        echo "<table>
-        <tr>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>URL</th>
-        <th>Age</th>
-        <th>City</th>
-        <th>State</th>
-        <th>Occupation</th>
-        </tr>";
-        /*while($result->fetch(PDO::FETCH_ASSOC)) {
-        	echo "<tr>";
-        	echo "<td>" . $row['FirstName'] . "</td>";
-        	echo "<td>" . $row['LastName'] . "</td>";
-        	echo "<td>" . $row['URL'] . "</td>";
-        	echo "<td>" . $row['Age'] . "</td>";
-        	echo "<td>" . $row['City'] . "</td>";
-        	echo "<td>" . $row['State'] . "</td>";
-        	echo "<td>" . $row['Occupation'] . "</td>";
-        	echo "</tr>";
-        }*/
-        echo "</table>";
+        echo "$q";
+        echo ":" . "$result";
 	}
 	catch(PDOException $ex) {
 			echo 'ERROR: ' . $ex->getMessage();

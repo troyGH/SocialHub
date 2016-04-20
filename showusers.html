@@ -5,21 +5,21 @@
 	<title>Social Hub - Social Networking Site</title>
 	 <link rel="stylesheet" href="external/style.css" />
 	 <script type = "text/javascript" src="external/JSScript.js">
-    function showUsers(str) {
-        if (str == "")
-            document.getElementById("txtHint").innerHTML = "";
-            return;
-        } else {
-            if (window.XMLHttpRequest) {
-                xmlhttp = new XMLHttpRequest();
+    function showUsersInformation(str) {
+        xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST","showusers.php?q="+str, true);
+        xmlhttp.onreadystatechange = displayChange;
+        xmlhttp.send();
+    }
+
+    function displayChange() {
+        if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+                var text = xmlhttp.responseText;
+                text = text.replace(/\n/g, "<br />");
+
+                document.getElementById("output").innerHTML = "<p>" + text "</p>"
             }
-            xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-                }
-            };
-            xmlhttp.open("GET","showusers.php?q="+str, true);
-            xmlhttp:send();
         }
     }
      </script>
@@ -45,16 +45,19 @@
 
         <!--Assignment 6 - AJAX -->
         <form>
-            <select name="users" onchange="showUsers(this.value)">
-                <option value="">Select a user: </option>
-                <option value="Aidan">Aidan Nguyen</option>
-                <option value="Yu-Kai">Yu-Kai Huang</option>
-                <option value="Troy">Troy Nguyen</option>
-                <option value="Vinay">Vinay Ponnaganti</option>
+            <select name="users" onchange="showUsersInformation(this.value)">
+                <option value="">Select one of your attributes: </option>
+                <option value="FirstName">First Name</option>
+                <option value="LastName">Last Name</option>
+                <option value="Age">Age</option>
+                <option value="City">City</option>
+                <option value="State">State</option>
+                <option value="Occupation">Occupation</option>
+
             </select>
         </form>
 
-        <br><div id="txtHint"><b>Information here.</b></div>
+        <br><div id="output"><b>Information here.</b></div>
         <br>
         <br>
         <a href="profile.php"> View profile</a>
