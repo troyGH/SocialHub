@@ -21,7 +21,7 @@ function verifyNull() {
 		errors += "Email must be filled out.\n";
 	}
 	else if (!emailRE.test(document.getElementById("email").value)) {
-		isValid = false;
+		isValid = false;	
 		errors += "Invalid email address.\n";
 	}
 

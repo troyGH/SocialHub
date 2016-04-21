@@ -4,25 +4,28 @@
 	<meta charset="utf-8" />
 	<title>Social Hub - Social Networking Site</title>
 	 <link rel="stylesheet" href="external/style.css" />
-	 <script type = "text/javascript" src="external/JSScript.js">
-    function showUsersInformation(str) {
+	 <script type = "text/javascript" src="external/JSScript.js"></script>
+     <script language = "javascript" type = "text/javascript">
+     function showUsersInformation() {
         xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("POST","showusers.php?q="+str, true);
-        xmlhttp.onreadystatechange = displayChange;
-        xmlhttp.send();
-    }
-
-    function displayChange() {
-        if (xmlhttp.readyState == 4) {
-            if (xmlhttp.status == 200) {
-                var text = xmlhttp.responseText;
-                text = text.replace(/\n/g, "<br />");
-
-                document.getElementById("output").innerHTML = "<p>" + text "</p>"
+        
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4) {
+                if (xmlhttp.status == 200) {
+                    var text = document.getElementById("output");
+                    text.innerHTML = xmlhttp.responseText;
             }
+         }
         }
+
+        var response = document.getElementById("userinfo").value;
+
+
+        xmlhttp.open("GET","showusers.php?q="+response, true);
+        xmlhttp.send(null);   
     }
-     </script>
+    </script>
+
 
 </head>
 <body>
@@ -44,20 +47,14 @@
         </header>   
 
         <!--Assignment 6 - AJAX -->
-        <form>
-            <select name="users" onchange="showUsersInformation(this.value)">
-                <option value="">Select one of your attributes: </option>
-                <option value="FirstName">First Name</option>
-                <option value="LastName">Last Name</option>
-                <option value="Age">Age</option>
-                <option value="City">City</option>
-                <option value="State">State</option>
-                <option value="Occupation">Occupation</option>
+        <form name ="ajaxForm">
+            <br> <p>Input a first name to search</p>
+            <input type = "text" id = "userinfo" />
 
-            </select>
+            <input type = "button" onclick = "showUsersInformation()" value = "Search!" />
         </form>
 
-        <br><div id="output"><b>Information here.</b></div>
+        <br><div id="output"><p>Information here.</p></div>
         <br>
         <br>
         <a href="profile.php"> View profile</a>

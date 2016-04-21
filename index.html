@@ -3,8 +3,16 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Social Hub - Social Networking Site</title>
-	 <link rel="stylesheet" href="external/style.css" />
+	 <link rel="stylesheet" href="external/jquery-ui.css" />
 	 <script type = "text/javascript" src="external/JSScript.js"></script>
+	 <script src="external/jquery-1.12.3.js"></script>
+	 <script src="external/jquery-ui.js"></script>
+	<link rel="stylesheet" href="external/style.css" />
+	 <script type="text/javascript">
+	 $(function() {
+	 	$( "#accordion").accordion();
+	 });
+	 </script>
 </head>
 <body>
 
@@ -27,6 +35,30 @@
 		<section>
 			<p> Welcome to Social Hub, a social networking web appliation. This is a classic social networking website in the making. 
 			<a href="signup.html">Sign up</a> for  an account to experience online social experience with your friends. </p>
+			<br>
+			<p> Why should you join? </p>
+			<div id="accordion">
+				<h3>Networking</h3>
+				<div>
+					<p>
+						You can network or something.
+					</p>
+				</div>
+				<h3>Friends</h3>
+				<div>
+					<p>
+						If you actually have friends.
+					</p>
+				</div>
+				<h3>Grade</h3>
+				<div>
+					<p>
+						Because it's part of your grade.
+					</p>
+				</div>
+			</div>
+
+
 		</section>
 		
 		<footer>

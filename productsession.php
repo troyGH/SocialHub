@@ -24,22 +24,7 @@
 			</nav>
 		</header>	
 		<section>
-
-		<!--Assignment 6 - AJAX -->
-		<form>
-			<select name="users" onchange="showUsers(this.value)">
-				<option value="">Select a user: </option>
-				<option value="Aidan">Aidan Nguyen</option>
-				<option value="Yu-Kai">Yu-Kai Huang</option>
-				<option value="Troy">Troy Nguyen</option>
-				<option value="Vinay">Vinay Ponnaganti</option>
-			</select>
-		</form>
-
-		<br><div id="txtHint"><b>Information here.</b></div>
-
-		
-		
+	
 		<br>
 		<h2>Previous searches: </h2>
 		<br>
