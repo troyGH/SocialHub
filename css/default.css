@@ -1,0 +1,73 @@
+
+/* Default styles
+-------------------------------------------------- */
+html {
+  position: relative;
+    min-height: 100%;
+}
+
+body {
+  min-height:100%;
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+    background: linear-gradient(
+						rgba(0, 0, 0, 0.2),
+						rgba(0, 0, 0, 0.2)),
+					url('../img/bg.jpg') no-repeat center;	
+		
+     -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color:#222;
+  border-color:#080808;
+  color:#9d9d9d;
+  padding: 15px;
+}
+
+/* Navigation bar customizations
+-------------------------------------------------- */
+.navbar-brand{
+    font-weight: bold;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+
+body > .container {
+  padding: 60px 15px 0;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
+
+/* About Us Page
+-------------------------------------------------- */
+#accordion{
+    opacity: 0.85;
+	text-align: center;
+}
+#signin-form-index {
+ opacity: 0.9;
+ margin-top:30px;
+}
+.form-group.last {
+ margin-bottom:0px;
+}
