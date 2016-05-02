@@ -24,7 +24,21 @@
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
-  
+    <script>
+                     window.onload = function() { 
+						$.ajax({
+							 url: 'php/check.php',
+							 success: function (response) {
+							 var data = JSON.parse(response);
+								if(data.auth == true){
+									$('#username').html(data.fname + " " +data.lname);
+								}else{
+									window.location.href = 'index.html';
+								}
+							}	
+						}); 
+					};
+    </script>
 </head>
 <body>
     <!-- navbar-->
@@ -38,21 +52,32 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li><a href="profileindex.html"><span class="glyphicon glyphicon-home"></span></a></li>
             <li><a href="aboutus.html">About</a></li>
             <li><a href="#">News</a></li>
             <li><a href="#">Contact</a></li>
               
-            <li class="dropdown">
+            <li class="dropdown active">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>      
                 <ul class="dropdown-menu">
                   <li><a href="profileindex.html">Profile</a></li>
-                  <li class="active"><a href="#">Settings</a></li>
+                  <li class="active"><a href="profilesettings.html">Edit Profile</a></li>
                   <li><a href="#">Friends</a></li> 
                   <li><a href="#">Comments</a></li> 
                   <li class="divider"></li>
-                  <li><a href="#">Sign Out</a></li> 
+                  <li><a href="#" id="logout">Sign Out</a></li> 
+                    <script>
+                     $("#logout").click(function() {
+            $.ajax({
+				url: 'php/signout.php',
+				success: function (response) {
+				if(response == 'pass')
+					window.location.href = 'index.html';
+        }
+    });
+        });
+		</script>
                 </ul>
               </li>
           </ul>
@@ -60,54 +85,124 @@
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
-	
- 
-	<div class="container">
-      <form class="form-signup">
-        <h2 class="form-signin-heading">Edit Profile</h2>
-		
-		<div class="form-group">
-			<div class="col-sm-3 control-label">
-				<label>Profile URL Characters</label>
-			</div>
-			<div class="col-sm-9 form-group">
-				<input type="text" placeholder="socialhub.com/xxxxxxxx" class="form-control">
-			</div>
-		</div>
-			
-		<div class="form-group">
-			<div class="col-sm-3 control-label">
-				<label>City</label>
-			</div>
-			<div class="col-sm-9 form-group">
-				<input type="text" placeholder="City" class="form-control">
-			</div>
+	  
+		<div class="container text-center">    
+	  <div class="row">
+		<div class="col-sm-3 well">
+		  <div class="well">
+			<h2 id="username">John Doe</h2>
+			<hr>
+			<img src="https://pbs.twimg.com/profile_images/1237550450/mstom_400x400.jpg" class="img-circle" height="65" width="65" alt="Avatar">
+		  </div>
+		  <div class="well">
+			<h3>About Me</h3>
+			<hr>
+			  <label>Gender:</label></br>
+			  <label>Age:</label></br>
+			  <label>City:</label></br>
+			  <label>State:</label></br>
+			  <label>Occupation:</label></br>
+			  <label>Interests:</label>
+		  </div>
 		</div>
 		
-		<div class="form-group">
-			<div class="col-sm-3 control-label">
-				<label>State</label>
+		<div class="col-sm-7">
+		  <div class="row">
+			<div class="col-sm-12">
+			  <div class="panel panel-default text-left">
+				<div class="panel-body">
+				  <h3 class="text-center">Edit Profile</h3>
+				  <hr>
+				  <form class="form-horizontal" id="register-form" role="form" method="POST" action="php/register.php" >
+						<div class="form-group">
+							<label class="col-xs-3 control-label">Gender</label>
+							<div class="col-xs-9">
+								<div class="btn-group" data-toggle="buttons">
+									<label class="btn btn-default">
+										<input type="radio" name="gender" value="male" /> Male
+									</label>
+									<label class="btn btn-default">
+										<input type="radio" name="gender" value="female" /> Female
+									</label>
+									<label class="btn btn-default active">
+										<input type="radio" name="gender" value="other" /> Other
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputAge" class="col-sm-4 control-label">
+								Age</label>
+							<div class="col-sm-8">
+								<input type="number" id="inputAge" name="inputAge" min="1" max="120">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputCity" class="col-sm-4 control-label">
+								City</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="inputCity" name="inputCity" placeholder="City">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputState" class="col-sm-4 control-label">
+								State</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="inputState" name="inputState" placeholder="State">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputOccupation" class="col-sm-4 control-label">
+								Occupation</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="inputOccupation" name="inputOccupation" placeholder="Occupation">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputInterests" class="col-sm-4 control-label">
+								Interests</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="inputInterests" name="inputInterests" placeholder="Interests">
+							</div>
+						</div>
+						<div class="form-group last">
+							<div class="col-sm-offset-4 col-sm-8">
+								<button type="submit" class="btn btn-primary btn-sm">Edit</button>
+								<button type="reset" class="btn btn-default btn-sm">Reset</button>
+							</div>
+						</div>
+                    </form>   
+				</div>  
+				</div>
+			  </div>
 			</div>
-			<div class="col-sm-9 form-group">
-				<input type="text" placeholder="State" class="form-control">
+		 </div>
+		  
+		  
+		<div class="col-sm-2 well">
+			<h3>Friends</h3>
+			<hr> 
+			<div class="well">
+			<p><a href="#">Friend 1</a></p>
 			</div>
+			<div class="well">
+			<p><a href="#">Friend 2</a></p>
+			</div>
+			<div class="well">
+			<p><a href="#">Friend 3</a></p>
+			</div>
+			<div class="well">
+			<p><a href="#">Friend 4</a></p>
+			</div>
+			<div class="well">
+			<p><a href="#">Friend 5</a></p>
+			</div>
+			<div class="well">
+			<p><a href="#">Friend 6</a></p>
+			</div>
+		  </div>
 		</div>
-		
-		<div class="form-group">
-			<div class="col-sm-3 control-label">
-				<label>Interests</label>
-			</div>
-			<div class="col-sm-9 form-group">
-				<input type="text" placeholder="Interests" class="form-control">
-			</div>
-		</div>
-			 
-		
-		<div class="col-sm-12">
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-		</div>	
-		
-		</form> 
+	  </div>
 	</div>
 	
 	<footer class="container-fluid text-center">

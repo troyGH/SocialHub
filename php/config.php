@@ -1,6 +1,6 @@
 <?php
-    define('DB_HOST', 'localhost');
-    define('DB_USER', 'root');
-    define('DB_PASSWORD', '');
-    define('DB_NAME', 'social_network');
+    $db_host = 'localhost';
+    $db_user = 'root';
+    $db_password = '';
+    $db_name = 'social_network';
 ?>
