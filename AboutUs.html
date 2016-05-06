@@ -15,14 +15,15 @@
 <!-- Local CSS Files -->
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap.theme.css">
-<link rel="stylesheet" href="css/bootstrap.theme.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="css/default.css">
   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/defaultscript.js"></script>
  
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
 <script>
 	window.onload = function() { 
@@ -30,11 +31,8 @@
 							 url: 'php/check.php',
 							 success: function (response) {
 							 var data = JSON.parse(response);
-								if(data.auth == true)
-									window.location.href = 'profileindex.html';
-								else
+								if(data.auth == false)
 									$('#dropdownmenu').remove();
-								
 							}	
 						}); 
 					};
@@ -78,6 +76,11 @@
 	
  
 	<div class="container">
+	<div class="panel panel-default">
+			<div class="panel-heading">
+				<center> <h2> About Us </h2> </center>
+			</div>
+		</div>
 	  <div class="panel-group" id="accordion">
 	  <div class="panel panel-success">
 		<div class="panel-heading">

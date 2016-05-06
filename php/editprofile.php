@@ -16,19 +16,19 @@ try{
     
 	$pid = $_SESSION['ProfileID'];
 
-		$stmt = $conn->prepare("UPDATE profile SET ProfileID = '$pid',Gender= '$gender',
+	$stmt = $conn->prepare("UPDATE profile SET ProfileID = '$pid',Gender= '$gender',
 													Age='$age',City='$city',State='$state',
 													Occupation='$occupation',Interests='$interests' 
 													WHERE ProfileID = '$pid'");
 		$status = $stmt->execute();
 		
 		
-		$_SESSION['gender'] = $gender;
-		$_SESSION['age']= $age;
-		$_SESSION['city']= $city;
-		$_SESSION['state']= $state;
-		$_SESSION['occupation']= $occupation;
-		$_SESSION['interests']= $interests;
+		$_SESSION['Gender'] = $gender;
+		$_SESSION['Age']= $age;
+		$_SESSION['City']= $city;
+		$_SESSION['State']= $state;
+		$_SESSION['Occupation']= $occupation;
+		$_SESSION['Interests']= $interests;
 		
 		header("Location: ../profileindex.html");
 }

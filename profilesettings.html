@@ -8,30 +8,37 @@
 <META NAME="Description" CONTENT="">
 <head>
 
-<title>SocialHub</title>
+<title>Social Hub</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
   
 <!-- Local CSS Files -->
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap.theme.css">
-<link rel="stylesheet" href="css/bootstrap.theme.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="css/default.css">
-    
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/bootstrap.min.js"></script>
-    
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+ 
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
     <script>
                      window.onload = function() { 
+						$.get("php/getprofileinfo.php");
 						$.ajax({
 							 url: 'php/check.php',
 							 success: function (response) {
 							 var data = JSON.parse(response);
 								if(data.auth == true){
 									$('#username').html(data.fname + " " +data.lname);
+									$('#gender').html(" " + data.gender);
+									$('#age').html(" " + data.age);
+									$('#city').html(" " + data.city);
+									$('#state').html(" " + data.state);
+									$('#occupation').html(" " + data.occupation);
+									$('#interests').html(" " + data.interests);									
 								}else{
 									window.location.href = 'index.html';
 								}
@@ -54,8 +61,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="profileindex.html"><span class="glyphicon glyphicon-home"></span></a></li>
             <li><a href="aboutus.html">About</a></li>
-            <li><a href="#">News</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
               
             <li class="dropdown active">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -94,15 +101,15 @@
 			<hr>
 			<img src="https://pbs.twimg.com/profile_images/1237550450/mstom_400x400.jpg" class="img-circle" height="65" width="65" alt="Avatar">
 		  </div>
-		  <div class="well">
-			<h3>About Me</h3>
+		  <div class="well text-left">
+			<h2 class="text-center">About Me</h2>
 			<hr>
-			  <label>Gender:</label></br>
-			  <label>Age:</label></br>
-			  <label>City:</label></br>
-			  <label>State:</label></br>
-			  <label>Occupation:</label></br>
-			  <label>Interests:</label>
+			  <label>Gender: </label><span id="gender"></span></br>
+			  <label>Age: </label><span id="age"></span></br>
+			  <label>City: </label><span id="city"></span></br>
+			  <label>State: </label><span id="state"></span></br>
+			  <label>Occupation: </label><span id="occupation"></span></br>
+			  <label>Interests: </label><span id="interests"></span>
 		  </div>
 		</div>
 		
@@ -167,7 +174,7 @@
 						</div>
 						<div class="form-group last">
 							<div class="col-sm-offset-4 col-sm-8">
-								<button type="submit" class="btn btn-primary btn-sm">Edit</button>
+								<button type="submit" class="btn btn-primary btn-sm">Submit</button>
 								<button type="reset" class="btn btn-default btn-sm">Reset</button>
 							</div>
 						</div>

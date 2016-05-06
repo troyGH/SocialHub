@@ -1,4 +1,3 @@
-
 <?php require_once 'config.php'?>
 <?php
 session_start();
@@ -23,7 +22,8 @@ try{
     
     if(!$row)
     {
-          header("Location: ../index.html");
+		$_SESSION['Error'] = true;
+        header("Location: ../index.html");
     }
     else
     {
