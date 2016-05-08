@@ -28,6 +28,26 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
  <script>
+
+ 	function getComments(id){
+ 		//pid should actually be uid but for some reason i kept getting an error with just a different variable name...
+		$.post("php/getcomments.php",{pid: id},
+		function(data){
+			var list = JSON.parse(data);
+			list.forEach(function(i) {
+				updateComments(i);
+			});
+		});
+	}		
+	
+			
+	function updateComments(comment){
+		$('#comments').append('<div class="row"><div class="col-sm-3"><div class="well text-center"><p><a href="#">'
+		 + comment.FirstName + ' ' + comment.LastName + '</a></p></div></div><div class="col-sm-9"><div class="well">'
+		 + '<p>' + comment.Comment + '</p></div></div></div>');
+		$('#comments').append();
+	}
+
 	function getFriends(id){
 		$.post("php/getfriends.php",{uid: id},
 		function(data){
@@ -79,9 +99,11 @@
 		
 	window.onload = function(){
 		var uid = <?php echo $_GET['id']; ?>;
+
 		getFriends(uid);
 		getAboutMe(uid);
 		verifyAddButton(uid);
+		getComments(uid);
 	};
 </script>
 </head>
@@ -156,7 +178,7 @@
 		  <div class="row">
 			<div class="col-sm-12">
 			  <div class="panel panel-default text-left">
-				<div class="panel-body">
+				<div class="panel-body" id="comments">
 				  <h3 class="text-center">Comments</h3>
 				  <hr>
 				<!--  

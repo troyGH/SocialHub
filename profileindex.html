@@ -29,7 +29,8 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
  <script>
  	function getComments(id){
-		$.post("php/getcomments.php",{pid: 12},
+ 		//pid should actually be uid but for some reason i kept getting an error with just a different variable name...
+		$.post("php/getcomments.php",{pid: id},
 		function(data){
 			var list = JSON.parse(data);
 			list.forEach(function(i) {
@@ -40,7 +41,9 @@
 	
 			
 	function updateComments(comment){
-		$('#comments').append('<div class="row"><div class="col-sm-3"><div class="well text-center"><p><a href="#">Friend 4</a></p></div></div><div class="col-sm-9"><div class="well">'+'<p>' + comment + '</p></div></div></div>');
+		$('#comments').append('<div class="row"><div class="col-sm-3"><div class="well text-center"><p><a href="#">'
+		 + comment.FirstName + ' ' + comment.LastName + '</a></p></div></div><div class="col-sm-9"><div class="well">'
+		 + '<p>' + comment.Comment + '</p></div></div></div>');
 		$('#comments').append();
 	}
 
@@ -89,7 +92,7 @@
 				$('#username').html(data.fname + " " + data.lname);
 				getAboutMe(data.uid);
 				getFriends(data.uid);
-				getComments(data.pid);
+				getComments(data.uid);
 			}
 			else{
 				window.location.href = 'index.html';
