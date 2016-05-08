@@ -3,7 +3,6 @@
 TO DO: <br />
 1. Implement submitting comments to other people. <br />
 2. Implement Search for friends by name, must add search bar on navigation for all pages. <br />
-3. Friends verification and sending friend requests  <br />
 4. Generate fake data for database & export for .sql dump <br />
 
 **Yu-Kai: 3 <br />
@@ -21,5 +20,5 @@ WORKING FEATURES: <br />
 5. Friending people & handling friends requests. <br />
 6  Friends.html tab to show list of all friends, and request tab shows a yes-no button & name of person when someone befriend you.<br />
 7. Profile comments & comment form display <br />
-8. Friends's names display
-
+8. Friends's names display <br />
+9. Friends verification and sending friend requests  

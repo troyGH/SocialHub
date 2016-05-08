@@ -85,15 +85,12 @@
 	}
 	
 	function verifyAddButton(id){
-		$.ajax({
-			url: 'php/check.php',
-			success: function (response) {
-			var data = JSON.parse(response);
-			if(data.uid == id){
+		$.post("php/checkfriend.php", {uid: id},
+		function(data){
+			if(data == "true"){
 				$('#add-friend-button').hide();
 			}
-		}	
-		});	
+		});
 	}
 	function setCommentBox(id){
 		$.ajax({
@@ -171,6 +168,21 @@
 			<img src="https://pbs.twimg.com/profile_images/1237550450/mstom_400x400.jpg" class="img-circle" height="65" width="65" alt="Avatar">
 		    <hr>
 			<button type="submit" class="btn btn-primary btn-sm" id="add-friend-button">Add Friend</button>
+			<script>
+							$("#add-friend-button").click(function() {
+								var uid = <?php echo $_GET['id']; ?>;
+								var dataString = 'requestID='+uid;
+								$.ajax({
+									type:'POST',
+									data:dataString,
+									url:'php/requestFriend.php',
+									success:function(response) {
+									 alert(response);
+									}
+								  });
+								});
+							
+			</script>
 		  </div>
 		  <div class="well text-left">
 			<h2 class="text-center">About Me</h2>
