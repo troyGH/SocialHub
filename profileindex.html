@@ -57,11 +57,11 @@
 		});
 	}		
 	
-	function updateFriends(link){
+	function updateFriends(friend){
 		var a = $('<a />');
 		$('#friends-list').append('<p>');
-		a.attr('href', "profile.php?id="+link);
-		a.text("Friend");
+		a.attr('href', "profile.php?id="+ friend.FriendsID);
+		a.text(friend.FirstName + " " + friend.LastName);
 		$('#friends-list').append(a);
 		$('#friends-list').append('</p>');
 	}
