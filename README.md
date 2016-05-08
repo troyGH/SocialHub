@@ -5,7 +5,8 @@ TO DO: <br />
 2. Implement comment form to show up for profile.php <br />
 3. Implement submitting comments to other people. <br />
 4. Implement Search for friends by name, must add search bar on navigation for all pages. <br />
-6. Check if user is already friends, if so, no need for "Add Friend" button on profile.php <br />
+5. Check if user is already friends, if so, no need for "Add Friend" button on profile.php <br />
+6. Generate fake data for database & export for .sql dump <br />
 
 **Yu-Kai: 6 <br />
 **Troy: 2 <br />
