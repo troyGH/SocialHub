@@ -9,7 +9,10 @@ try{
 	
     $uid = $_POST['uid'];
 	
-	$stmt = $conn->prepare("SELECT FriendsID FROM `friendship` WHERE friendship.UserID = $uid");
+	$stmt = $conn->prepare("SELECT FriendsID, FirstName, LastName 
+							FROM `friendship`, `user` 
+							WHERE friendship.UserID = $uid
+							AND user.UserID = friendship.FriendsID");
 	$stmt->execute();
 	$result = $stmt->fetchAll();
 	
@@ -18,7 +21,7 @@ try{
 		$arr = array();
 		
 		foreach($result as $item){
-			array_push($arr, $item['FriendsID']);
+			array_push($arr, $item);
 		}
 		echo json_encode($arr);
 	}
