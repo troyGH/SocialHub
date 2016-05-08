@@ -84,11 +84,22 @@
 		$('#username').html(data.fname + " " + data.lname);
 	}
 	
-	function verifyAddButton(id){
+	function checkFriends(id){
 		$.post("php/checkfriend.php", {uid: id},
 		function(data){
 			if(data == "true"){
 				$('#add-friend-button').hide();
+			}
+			else{
+				$('#comment-box').hide();
+			}
+		});
+		
+		$.post("php/checkpendingrequests.php", {uid: id},
+		function(data){
+			if(data == "true"){
+				$('#add-friend-button').prop('disabled', true);
+				$('#add-friend-button').text('Request Pending');
 			}
 		});
 	}
@@ -108,7 +119,7 @@
 		var uid = <?php echo $_GET['id']; ?>;
 		getFriends(uid);
 		getAboutMe(uid);
-		verifyAddButton(uid);
+		checkFriends(uid);
 		getComments(uid);
 		setCommentBox(uid);
 	};
@@ -177,7 +188,8 @@
 									data:dataString,
 									url:'php/requestFriend.php',
 									success:function(response) {
-									 alert(response);
+										$('#add-friend-button').prop('disabled', true);
+										$('#add-friend-button').text('Request Pending');
 									}
 								  });
 								});
