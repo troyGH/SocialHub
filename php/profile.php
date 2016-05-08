@@ -28,25 +28,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
  <script>
-
- 	function getComments(id){
-		$.post("php/getcomments.php",{uid: id},
-		function(data){
-			var list = JSON.parse(data);
-			list.forEach(function(i) {
-				updateComments(i);
-			});
-		});
-	}		
-	
-			
-	function updateComments(comment){
-		$('#comments').append('<div class="row"><div class="col-sm-3"><div class="well text-center"><p><a href="profile.php?id=' + comment.SenderID + '">'
-		 + comment.FirstName + ' ' + comment.LastName + '</a></p></div></div><div class="col-sm-9"><div class="well">'
-		 + '<p>' + comment.Comment + '</p></div></div></div>');
-		$('#comments').append();
-	}
-
 	function getFriends(id){
 		$.post("php/getfriends.php",{uid: id},
 		function(data){
@@ -57,11 +38,11 @@
 		});
 	}		
 	
-	function updateFriends(friend){
+	function updateFriends(link){
 		var a = $('<a />');
 		$('#friends-list').append('<p>');
-		a.attr('href', "profile.php?id="+ friend.FriendsID);
-		a.text(friend.FirstName + " " + friend.LastName);
+		a.attr('href', "profile.php?id="+link);
+		a.text("Friend");
 		$('#friends-list').append(a);
 		$('#friends-list').append('</p>');
 	}
@@ -85,32 +66,23 @@
 	}
 	
 	function verifyAddButton(id){
-		$.post("php/checkfriend.php", {uid: id},
-		function(data){
-			if(data == "true"){
-				$('#add-friend-button').hide();
-			}
-		});
-	}
-	function setCommentBox(id){
 		$.ajax({
 			url: 'php/check.php',
 			success: function (response) {
 			var data = JSON.parse(response);
 			if(data.uid == id){
-				$('#comment-box').hide();
+				$('#add-friend-button').hide();
 			}
 		}	
-		});	
+		});
+		
 	}
-	
+		
 	window.onload = function(){
 		var uid = <?php echo $_GET['id']; ?>;
 		getFriends(uid);
 		getAboutMe(uid);
 		verifyAddButton(uid);
-		getComments(uid);
-		setCommentBox(uid);
 	};
 </script>
 </head>
@@ -168,21 +140,6 @@
 			<img src="https://pbs.twimg.com/profile_images/1237550450/mstom_400x400.jpg" class="img-circle" height="65" width="65" alt="Avatar">
 		    <hr>
 			<button type="submit" class="btn btn-primary btn-sm" id="add-friend-button">Add Friend</button>
-			<script>
-							$("#add-friend-button").click(function() {
-								var uid = <?php echo $_GET['id']; ?>;
-								var dataString = 'requestID='+uid;
-								$.ajax({
-									type:'POST',
-									data:dataString,
-									url:'php/requestFriend.php',
-									success:function(response) {
-									 alert(response);
-									}
-								  });
-								});
-							
-			</script>
 		  </div>
 		  <div class="well text-left">
 			<h2 class="text-center">About Me</h2>
@@ -200,31 +157,72 @@
 		  <div class="row">
 			<div class="col-sm-12">
 			  <div class="panel panel-default text-left">
-				<div class="panel-body" id="comments">
+				<div class="panel-body">
 				  <h3 class="text-center">Comments</h3>
 				  <hr>
-				    
-				  <div class="row" id="comment-box">
-					<div class="col-sm-12">
-					<form class="form-horizontal" id="comment-form" role="form" method="POST" action="php/postcomment.php" >
-						
-						<div class="form-group text-right">
-							  <textarea class="form-control" rows="5" name="commenttext"></textarea>
-						</div>
-						
-						<div class="form-group last">
-							<div class="col-sm-offset-3 col-sm-9">
-								<button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
-								<button type="reset" class="btn btn-default btn-sm">Reset</button>
-							</div>
-						</div>
-						
-                    </form> 
-					</div>
-				</div>  
-				
-				<hr>
+				<!--  
+				  <div class="row">
+			<div class="col-sm-3">
+			  <div class="well text-center">
+			   <p><a href="#">Friend 4</a></p>
+			  </div>
 			</div>
+			<div class="col-sm-9">
+			  <div class="well">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum varius erat id scelerisque. 
+				Quisque massa leo, volutpat eget dolor vel, lobortis condimentum est. Suspendisse quis risus at enim commodo viverra. 
+				Maecenas aliquet ultricies luctus. Maecenas et leo ut odio pretium varius in ut ligula. Sed sit amet consectetur nisl. 
+				Mauris interdum pharetra scelerisque. Praesent libero est, fringilla porttitor cursus elementum, sodales at felis. 
+				Nullam efficitur sed purus et sodales.</p>
+			  </div>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-sm-3">
+			  <div class="well text-center">
+			   <p><a href="#">Friend 3</a></p>
+			  </div>
+			</div>
+			<div class="col-sm-9">
+			  <div class="well">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum varius erat id scelerisque. 
+				Quisque massa leo, volutpat eget dolor vel, lobortis condimentum est. Suspendisse quis risus at enim commodo viverra. 
+				Maecenas aliquet ultricies luctus. Maecenas et leo ut odio pretium varius in ut ligula. Sed sit amet consectetur nisl. 
+				Mauris interdum pharetra scelerisque. Praesent libero est, fringilla porttitor cursus elementum, sodales at felis. 
+				Nullam efficitur sed purus et sodales.</p>
+			  </div>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-sm-3">
+			  <div class="well text-center">
+			   <p><a href="#">Friend 2</a></p>
+			  </div>
+			</div>
+			<div class="col-sm-9">
+			  <div class="well">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum varius erat id scelerisque. 
+				Quisque massa leo, volutpat eget dolor vel, lobortis condimentum est. Suspendisse quis risus at enim commodo viverra. 
+				Maecenas aliquet ultricies luctus. Maecenas et leo ut odio pretium varius in ut ligula. Sed sit amet consectetur nisl. 
+				Mauris interdum pharetra scelerisque. Praesent libero est, fringilla porttitor cursus elementum, sodales at felis. 
+				Nullam efficitur sed purus et sodales.</p>
+			  </div>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-sm-3">
+			  <div class="well text-center">
+			   <p><a href="#">Friend 1</a></p>
+			  </div>
+			</div>
+			<div class="col-sm-9">
+			  <div class="well">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum varius erat id scelerisque. </p>
+			  </div>
+			</div>
+		  </div> 
+-->		  
+		</div>
 				   
 				</div>
 			  </div>
@@ -236,6 +234,7 @@
 				<h3>Friends</h3>
 				<hr> 
 				<div class="well" id="friends-list">
+			<!--	<p><a href="#">Friend 1</a></p> -->
 				</div>
 			</div>
 			</div>
