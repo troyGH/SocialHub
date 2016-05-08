@@ -28,8 +28,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
  <script>
-	var uid = <?php echo $_GET['id']; ?>;
-	
 	function getFriends(id){
 		$.post("php/getfriends.php",{uid: id},
 		function(data){
@@ -66,11 +64,24 @@
 		$('#interests').html(" " + data.interests);	
 		$('#username').html(data.fname + " " + data.lname);
 	}
+	
+	function verifyAddButton(id){
+		$.ajax({
+			url: 'php/check.php',
+			success: function (response) {
+			var data = JSON.parse(response);
+			if(data.uid == id){
+				$('#add-friend-button').hide();
+			}
+		}	
+		});	
+	}
 		
 	window.onload = function(){
 		var uid = <?php echo $_GET['id']; ?>;
 		getFriends(uid);
 		getAboutMe(uid);
+		verifyAddButton(uid);
 	};
 </script>
 </head>
@@ -126,6 +137,8 @@
 			<h2 id="username">First Last</h2>
 			<hr>
 			<img src="https://pbs.twimg.com/profile_images/1237550450/mstom_400x400.jpg" class="img-circle" height="65" width="65" alt="Avatar">
+		    <hr>
+			<button type="submit" class="btn btn-primary btn-sm" id="add-friend-button">Add Friend</button>
 		  </div>
 		  <div class="well text-left">
 			<h2 class="text-center">About Me</h2>
