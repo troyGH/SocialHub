@@ -30,8 +30,7 @@
  <script>
 
  	function getComments(id){
- 		//pid should actually be uid but for some reason i kept getting an error with just a different variable name...
-		$.post("php/getcomments.php",{pid: id},
+		$.post("php/getcomments.php",{uid: id},
 		function(data){
 			var list = JSON.parse(data);
 			list.forEach(function(i) {
@@ -42,7 +41,7 @@
 	
 			
 	function updateComments(comment){
-		$('#comments').append('<div class="row"><div class="col-sm-3"><div class="well text-center"><p><a href="#">'
+		$('#comments').append('<div class="row"><div class="col-sm-3"><div class="well text-center"><p><a href="profile.php?id=' + comment.SenderID + '">'
 		 + comment.FirstName + ' ' + comment.LastName + '</a></p></div></div><div class="col-sm-9"><div class="well">'
 		 + '<p>' + comment.Comment + '</p></div></div></div>');
 		$('#comments').append();
