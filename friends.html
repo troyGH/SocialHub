@@ -46,8 +46,99 @@
 									window.location.href = 'index.html';
 								}
 							}	
-						}); 
-					};
+						});
+				/////////////////////////////////////////////////
+						//print out friend list
+						$.ajax({
+									 url: 'php/printFriend.php',
+									 success: function (response) {
+									 var data = JSON.parse(response);
+	 
+									 var string = '';
+									 var List = document.getElementById("FriendList");
+										if(data.auth == true){
+										   List.innerHTML = List.innerHTML+'<div class="panel-body">';
+										  
+											for(var i = 1; i<data.count+1; i++){
+									
+												List.innerHTML = List.innerHTML + '<div class="row"><div class="col-sm-6"><div class="well text-center">'
+																+data.friendFirstName[i] + " "+data.friendLastName[i] +"</div></div></div>";
+
+											}
+											List.innerHTML = List.innerHTML +'</div>';
+										}else{
+											window.location.href = 'index.html';
+										}
+									}	
+								}); 
+		
+					/////////////////////////////////////////////////////////////////////////////////				
+							//print out friend request
+							
+								$.ajax({
+									 url: 'php/printRequest.php',
+									 success: function (response) {
+									 var data = JSON.parse(response);
+			 
+									 var string = '';
+									 var List = document.getElementById("RequestList");
+										if(data.auth == true){
+										   List.innerHTML = List.innerHTML+'<div class="panel-body">';
+											for(var i = 1; i<data.count+1; i++){
+												
+												List.innerHTML = List.innerHTML + '<div class="row"><div class="col-sm-6"><div class="well text-center">'
+																+data.requestFirstName[i] + " "+data.requestLastName[i]+"</div></div>"
+																
+																+ '<div class="col-sm-3"><div class="well">'
+																+"<button type='button' onclick='Comfirmrequest(" 
+																+ '"' + data.requestArray[i] + '"' + ")' >Comfirm </button>" 
+																+ "<button type='button' onclick='Denyrequest(" 
+																+ '"' + data.requestArray[i] + '"' + ")' >Deny </button><br>"
+																+ '</div></div></div>';
+		
+											}
+											List.innerHTML = List.innerHTML +'</div>';
+										}else{
+											window.location.href = 'index.html';
+										}
+									}	
+								});
+						
+					};//window.onload
+					///////////////////////////////////////////
+					//////////////////////////////////////////////////////////////////
+					//adding friend
+					function Comfirmrequest(UserID, i){
+						 
+						var dataString = 'FriendID='+UserID;
+						$.ajax({
+								type:'POST',
+								data:dataString,
+								url: 'php/addFriend.php',
+								success: function (response) {
+								//if(response == 'pass')
+									alert(response);
+									window.location.reload();
+							}
+						});
+		
+					}
+					
+					//////////////////////////////////////////////////
+					function Denyrequest(UserID, i){
+					 
+					var dataString = 'FriendID='+UserID;
+					$.ajax({
+							type:'POST',
+							data:dataString,
+							url: 'php/denyFriend.php',
+							success: function (response) {
+								alert(response);
+								window.location.reload();
+						}
+					});
+	
+				}
     </script>
 </head>
 <body>
@@ -98,53 +189,100 @@
 	  
 	<div class="container text-center">    
 	  <div class="row">
-		<div class="col-sm-3 well">
-		  <div class="well">
-			<h2 id="username">John Doe</h2>
-			<hr>
-			<img src="https://pbs.twimg.com/profile_images/1237550450/mstom_400x400.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-		  </div>
-		  <div class="well text-left">
-			<h2 class="text-center">About Me</h2>
-			<hr>
-			  <label>Gender: </label><span id="gender"></span></br>
-			  <label>Age: </label><span id="age"></span></br>
-			  <label>City: </label><span id="city"></span></br>
-			  <label>State: </label><span id="state"></span></br>
-			  <label>Occupation: </label><span id="occupation"></span></br>
-			  <label>Interests: </label><span id="interests"></span>
-		  </div>
-		</div>
-		
-		
-		 <div class="col-sm-7">
-		  
-		</div>
-		  
-		<div class="col-sm-2 well">
-			<h3>Friends</h3>
-			<hr> 
-			<div class="well">
-			<p><a href="#">Friend 1</a></p>
+		<div class="col-md-12 " id="signin-form-index">
+		   <div class="panel panel-default">  
+			<div class="panel-heading">
+						<ul class="nav nav-pills nav-justified">
+							<li class="active" id="FriendList-tab"><a href="#" id="ListLink">Friend List</a></li>
+							<li id="FriendRequest-tab"><a href="#" id="Requestlink">Friend Request</a></li>
+						</ul>
 			</div>
-			<div class="well">
-			<p><a href="#">Friend 2</a></p>
+			<div class="panel-body">
+				<form class="form-horizontal" id="FriendList-form" role="form" method="POST" action="#" style="display: block;">
+							<center>
+							<div class = "col-sm-12" id="FriendList"></div>
+							</center>
+					
+				
+				</form>
+			
+				<form class="form-horizontal" id="FriendRequest-form" role="form" method="POST" action="#" style="display: none;">
+							<center>
+							<div class = "col-sm-12" id="RequestList"></div>
+							</center>
+						
+							
+							<div class="form-group">
+							<div class="col-sm-12">
+								<button type="button" class="btn btn-primary btn-sm" id="showuers">Show Users!</button>
+								
+								<script>
+								$("#showuers").click(function() {
+									$.ajax({
+									url: 'php/showusers.php',
+									success: function (response) {
+									
+									$('#ShowUseroutput').html(response);
+									}
+									});
+								});
+								</script>
+							</div>
+							<center>
+							<div class = "col-sm-12" id="ShowUseroutput"></div>
+							</center>
+							<div class="col-sm-12">
+								<label for="request" class="control-label">
+								UserName:</label>
+								<input type="text" class="form_control" id= "requestName" name="request" placeholder="First Name">
+								<input type="submit" class="btn btn-primary btn-sm" name="Sendrequest" id="Sendrequest" value="Send Request"/>
+							</div>
+							
+							<script>
+							$("#Sendrequest").click(function(e) {
+								e.preventDefault();
+								var name = $("#requestName").val(); 
+								var dataString = 'requestName='+name;
+								$.ajax({
+									type:'POST',
+									data:dataString,
+									url:'php/requestFriend.php',
+									success:function(data) {
+									 $('#Requestoutput').html(data);
+									}
+								  });
+								});
+							
+							</script>
+							
+							<center>
+							<div class = "col-sm-12" id="Requestoutput"><p> Running!</p></div>
+							</center>
+							
+						</div>
+				</form>
+				
 			</div>
-			<div class="well">
-			<p><a href="#">Friend 3</a></p>
-			</div>
-			<div class="well">
-			<p><a href="#">Friend 4</a></p>
-			</div>
-			<div class="well">
-			<p><a href="#">Friend 5</a></p>
-			</div>
-			<div class="well">
-			<p><a href="#">Friend 6</a></p>
-			</div>
-		  </div>
+		   </div>
 		</div>
 	  </div>
+	</div>
+	
+	<!-- tabbed forms script -->
+	<script>
+    $(document).ready( function(){$('#ListLink').click(function(e) {
+		$("#FriendList-form").delay(100).fadeIn(100);
+ 		$("#FriendRequest-form").fadeOut(100);
+		$('#FriendRequest-tab').removeClass('active');
+		$('#FriendList-tab').addClass('active');
+	});
+	$('#Requestlink').click(function(e) {
+		$("#FriendRequest-form").delay(100).fadeIn(100);
+ 		$("#FriendList-form").fadeOut(100);
+		$('#FriendList-tab').removeClass('active');
+		$('#FriendRequest-tab').addClass('active');
+	});	});
+	</script>
 	
 	<footer class="container-fluid text-center">
 	  <p><p>&copy; SJSU CS174 Spring 2016 Project. All rights reserved.</p>
