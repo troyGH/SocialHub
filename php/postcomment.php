@@ -16,7 +16,6 @@
 
 		$pid = $con->lastInsertId();
 
-
 		$query = "INSERT INTO profilecomment(ProfileID, CommentID) VALUES ('$uid', '$pid')";
 		$result = $con->query($query);
 
