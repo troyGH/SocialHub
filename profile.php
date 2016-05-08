@@ -96,14 +96,25 @@
 		}	
 		});	
 	}
-		
+	function setCommentBox(id){
+		$.ajax({
+			url: 'php/check.php',
+			success: function (response) {
+			var data = JSON.parse(response);
+			if(data.uid == id){
+				$('#comment-box').hide();
+			}
+		}	
+		});	
+	}
+	
 	window.onload = function(){
 		var uid = <?php echo $_GET['id']; ?>;
-
 		getFriends(uid);
 		getAboutMe(uid);
 		verifyAddButton(uid);
 		getComments(uid);
+		setCommentBox(uid);
 	};
 </script>
 </head>
@@ -181,69 +192,28 @@
 				<div class="panel-body" id="comments">
 				  <h3 class="text-center">Comments</h3>
 				  <hr>
-				<!--  
-				  <div class="row">
-			<div class="col-sm-3">
-			  <div class="well text-center">
-			   <p><a href="#">Friend 4</a></p>
-			  </div>
+				    
+				  <div class="row" id="comment-box">
+					<div class="col-sm-12">
+					<form class="form-horizontal" id="comment-form" role="form" method="POST" action="php/postcomment.php" >
+						
+						<div class="form-group text-right">
+							  <textarea class="form-control" rows="5" name="commenttext"></textarea>
+						</div>
+						
+						<div class="form-group last">
+							<div class="col-sm-offset-3 col-sm-9">
+								<button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+								<button type="reset" class="btn btn-default btn-sm">Reset</button>
+							</div>
+						</div>
+						
+                    </form> 
+					</div>
+				</div>  
+				
+				<hr>
 			</div>
-			<div class="col-sm-9">
-			  <div class="well">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum varius erat id scelerisque. 
-				Quisque massa leo, volutpat eget dolor vel, lobortis condimentum est. Suspendisse quis risus at enim commodo viverra. 
-				Maecenas aliquet ultricies luctus. Maecenas et leo ut odio pretium varius in ut ligula. Sed sit amet consectetur nisl. 
-				Mauris interdum pharetra scelerisque. Praesent libero est, fringilla porttitor cursus elementum, sodales at felis. 
-				Nullam efficitur sed purus et sodales.</p>
-			  </div>
-			</div>
-		  </div>
-		  <div class="row">
-			<div class="col-sm-3">
-			  <div class="well text-center">
-			   <p><a href="#">Friend 3</a></p>
-			  </div>
-			</div>
-			<div class="col-sm-9">
-			  <div class="well">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum varius erat id scelerisque. 
-				Quisque massa leo, volutpat eget dolor vel, lobortis condimentum est. Suspendisse quis risus at enim commodo viverra. 
-				Maecenas aliquet ultricies luctus. Maecenas et leo ut odio pretium varius in ut ligula. Sed sit amet consectetur nisl. 
-				Mauris interdum pharetra scelerisque. Praesent libero est, fringilla porttitor cursus elementum, sodales at felis. 
-				Nullam efficitur sed purus et sodales.</p>
-			  </div>
-			</div>
-		  </div>
-		  <div class="row">
-			<div class="col-sm-3">
-			  <div class="well text-center">
-			   <p><a href="#">Friend 2</a></p>
-			  </div>
-			</div>
-			<div class="col-sm-9">
-			  <div class="well">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum varius erat id scelerisque. 
-				Quisque massa leo, volutpat eget dolor vel, lobortis condimentum est. Suspendisse quis risus at enim commodo viverra. 
-				Maecenas aliquet ultricies luctus. Maecenas et leo ut odio pretium varius in ut ligula. Sed sit amet consectetur nisl. 
-				Mauris interdum pharetra scelerisque. Praesent libero est, fringilla porttitor cursus elementum, sodales at felis. 
-				Nullam efficitur sed purus et sodales.</p>
-			  </div>
-			</div>
-		  </div>
-		  <div class="row">
-			<div class="col-sm-3">
-			  <div class="well text-center">
-			   <p><a href="#">Friend 1</a></p>
-			  </div>
-			</div>
-			<div class="col-sm-9">
-			  <div class="well">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum varius erat id scelerisque. </p>
-			  </div>
-			</div>
-		  </div> 
--->		  
-		</div>
 				   
 				</div>
 			  </div>
@@ -255,7 +225,6 @@
 				<h3>Friends</h3>
 				<hr> 
 				<div class="well" id="friends-list">
-			<!--	<p><a href="#">Friend 1</a></p> -->
 				</div>
 			</div>
 			</div>
