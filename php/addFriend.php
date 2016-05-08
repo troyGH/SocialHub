@@ -21,6 +21,13 @@
 				
 				if($result->rowCount()!==0){
 					print "that user is your friend already.";
+					$query = "DELETE FROM request WHERE UserID = '$fid' AND FriendID= '$uid'";
+								
+					$con->exec($query);
+					
+					$query = "DELETE FROM request WHERE UserID = '$uid' AND FriendID= '$fid'";
+					$con->exec($query);
+					
 				}else{
 					//insert into friendship table
 					$query = "INSERT INTO friendship (UserID, FriendsID)

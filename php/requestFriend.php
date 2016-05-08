@@ -1,38 +1,22 @@
 <?php require_once 'config.php'?>
 <?php
 	session_start();
-    $uname = $_POST["requestName"];
+    $fid = $_POST["requestID"];
 	$uid = $_SESSION["UserID"];
 
     try {
+		
 		$con = new PDO("mysql:host=localhost;dbname=social_network", $db_user, $db_password);
         $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
-		//getting Friend's ID first
-        $query = 
-                "SELECT UserID
-                 FROM user WHERE FirstName = '$uname'";
-        
-            // Fetch the database field names.
-            $result = $con->query($query);
-            $row = $result->fetch(PDO::FETCH_ASSOC);
-         
-		if($result->rowCount() ==0){	
-                
-				print "the user name doesn't exist.";
-		}else{
-			foreach ($row as $name => $value) {
-                      $friendID = $value;
-                }
-		
-		
+
 			//check if user is adding himself
-			if($uid !== $friendID){
+			if($uid !== $fid){
 				
 				//check if they are already friends
 				$query = 
 					"SELECT *
-					FROM request WHERE UserID = '$uid' AND FriendID = '$friendID'";
+					FROM request WHERE UserID = '$uid' AND FriendID = '$fid'";
   
 				$result = $con->query($query);
 				
@@ -42,7 +26,7 @@
 				}else{
 					
 					//check if they are already friend
-					$query = "SELECT * FROM friendship WHERE UserID = '$uid' AND FriendsID = '$friendID'";
+					$query = "SELECT * FROM friendship WHERE UserID = '$uid' AND FriendsID = '$fid'";
   
 					$result = $con->query($query);
 					
@@ -52,7 +36,7 @@
 						
 							//insert into friendship table
 							$query = "INSERT INTO request (UserID, FriendID)
-										VALUES ('$uid', '$friendID')";
+										VALUES ('$uid', '$fid')";
 							$con->exec($query);
 						
 							echo "Request is sent";  
@@ -61,7 +45,7 @@
 		    }else{
 				echo "You can't add yourself as a friend...";
 			}
-		}
+		
 	}
 	catch(PDOException $ex) {
 			echo 'ERROR: ' . $ex->getMessage();

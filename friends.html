@@ -46,7 +46,62 @@
 		$('#FriendList').append(a);
 		$('#FriendList').append('</p>');
 	}
+	
+	function getRequest(id){
+		$.post("php/getRequest.php",{pid: id},
+		function(data){
+			var list = JSON.parse(data);
+			list.forEach(function(i) {
+				updateRequest(i);
+			});
+		});
+	}		
+	
+	function updateRequest(request){
+				$('#RequestList').append('<div class="row"><div class="col-sm-6"><div class="well text-center">'
+					+" "+request.FirstName+" "+ request.LastName+"</div></div>"
+					+ '<div class="col-sm-4"><div class="well">'
+					+"<button type='button'"+ 'class="btn btn-primary btn-sm"' + "onclick='Comfirmrequest(" 
+					+ '"' + request.UserID + '"' + ")' >Yes </button>&nbsp " 
+					+ "<button type='button'"+ 'class="btn btn-primary btn-sm"' +" onclick='Denyrequest(" 
+					+ '"' + request.UserID + '"' + ")' >No </button><br>"
+					+ '</div></div></div>');
+				$('#RequestList').append('</p>');
+	}
+	//adding friend
+	function Comfirmrequest(UserID, i){
+						 
+		var dataString = 'FriendID='+UserID;
+			$.ajax({
+						type:'POST',
+						data:dataString,
+						url: 'php/addFriend.php',
+						success: function (response) {
+						//if(response == 'pass')
+						alert(response);
+						window.location.reload();
+						}
+					});
 		
+				}
+					
+	//////////////////////////////////////////////////
+	function Denyrequest(UserID, i){
+					 
+		var dataString = 'FriendID='+UserID;
+		$.ajax({
+				type:'POST',
+				data:dataString,
+				url: 'php/denyFriend.php',
+				success: function (response) {
+					alert(response);
+					window.location.reload();
+			}
+		});
+	
+	}	
+
+	
 	window.onload = function(){
 		$.ajax({
 			url: 'php/check.php',
@@ -55,105 +110,15 @@
 			if(data.auth == true){
 				$('#username').html(data.fname + " " + data.lname);
 				getFriends(data.uid);
+				getRequest(data.uid);
 			}
 			else{
 				window.location.href = 'index.html';
 			}
 		}	
 		}); 
-	};
-				/*/////////////////////////////////////////////////
-						//print out friend list
-						$.ajax({
-									 url: 'php/printFriend.php',
-									 success: function (response) {
-									 var data = JSON.parse(response);
-	 
-									 var string = '';
-									 var List = document.getElementById("FriendList");
-										if(data.auth == true){
-										   List.innerHTML = List.innerHTML+'<div class="panel-body">';
-										  
-											for(var i = 1; i<data.count+1; i++){
-									
-												List.innerHTML = List.innerHTML + '<div class="row"><div class="col-sm-6"><div class="well text-center">'
-																+data.friendFirstName[i] + " "+data.friendLastName[i] +"</div></div></div>";
-
-											}
-											List.innerHTML = List.innerHTML +'</div>';
-										}else{
-											window.location.href = 'index.html';
-										}
-									}	
-								}); 
-		
-					/////////////////////////////////////////////////////////////////////////////////				
-							//print out friend request
-							
-								$.ajax({
-									 url: 'php/printRequest.php',
-									 success: function (response) {
-									 var data = JSON.parse(response);
-			 
-									 var string = '';
-									 var List = document.getElementById("RequestList");
-										if(data.auth == true){
-										   List.innerHTML = List.innerHTML+'<div class="panel-body">';
-											for(var i = 1; i<data.count+1; i++){
-												
-												List.innerHTML = List.innerHTML + '<div class="row"><div class="col-sm-6"><div class="well text-center">'
-																+data.requestFirstName[i] + " "+data.requestLastName[i]+"</div></div>"
-																
-																+ '<div class="col-sm-3"><div class="well">'
-																+"<button type='button' onclick='Comfirmrequest(" 
-																+ '"' + data.requestArray[i] + '"' + ")' >Comfirm </button>" 
-																+ "<button type='button' onclick='Denyrequest(" 
-																+ '"' + data.requestArray[i] + '"' + ")' >Deny </button><br>"
-																+ '</div></div></div>';
-		
-											}
-											List.innerHTML = List.innerHTML +'</div>';
-										}else{
-											window.location.href = 'index.html';
-										}
-									}	
-								});
-						
-					};//window.onload
-					///////////////////////////////////////////
-					//////////////////////////////////////////////////////////////////
-					//adding friend
-					function Comfirmrequest(UserID, i){
-						 
-						var dataString = 'FriendID='+UserID;
-						$.ajax({
-								type:'POST',
-								data:dataString,
-								url: 'php/addFriend.php',
-								success: function (response) {
-								//if(response == 'pass')
-									alert(response);
-									window.location.reload();
-							}
-						});
-		
-					}
-					
-					//////////////////////////////////////////////////
-					function Denyrequest(UserID, i){
-					 
-					var dataString = 'FriendID='+UserID;
-					$.ajax({
-							type:'POST',
-							data:dataString,
-							url: 'php/denyFriend.php',
-							success: function (response) {
-								alert(response);
-								window.location.reload();
-						}
-					});
+	};//window.onload 
 	
-				}*/
     </script>
 </head>
 <body>
@@ -228,53 +193,8 @@
 						
 							
 							<div class="form-group">
-							<div class="col-sm-12">
-								<button type="button" class="btn btn-primary btn-sm" id="showuers">Show Users!</button>
-								
-								<script>
-								$("#showuers").click(function() {
-									$.ajax({
-									url: 'php/showusers.php',
-									success: function (response) {
-									
-									$('#ShowUseroutput').html(response);
-									}
-									});
-								});
-								</script>
+					
 							</div>
-							<center>
-							<div class = "col-sm-12" id="ShowUseroutput"></div>
-							</center>
-							<div class="col-sm-12">
-								<label for="request" class="control-label">
-								UserName:</label>
-								<input type="text" class="form_control" id= "requestName" name="request" placeholder="First Name">
-								<input type="submit" class="btn btn-primary btn-sm" name="Sendrequest" id="Sendrequest" value="Send Request"/>
-							</div>
-							
-							<script>
-							$("#Sendrequest").click(function(e) {
-								e.preventDefault();
-								var name = $("#requestName").val(); 
-								var dataString = 'requestName='+name;
-								$.ajax({
-									type:'POST',
-									data:dataString,
-									url:'php/requestFriend.php',
-									success:function(data) {
-									 $('#Requestoutput').html(data);
-									}
-								  });
-								});
-							
-							</script>
-							
-							<center>
-							<div class = "col-sm-12" id="Requestoutput"><p> Running!</p></div>
-							</center>
-							
-						</div>
 				</form>
 				
 			</div>
