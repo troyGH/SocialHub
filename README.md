@@ -2,10 +2,12 @@
 
 TO DO: <br />
 1. Implement comments to show up.* <br />
-2. Implement comment form to show up for profile.php. <br />
+2. Implement comment form to show up for profile.php** <br />
 3. Implement submitting comments to other people. <br />
+4. Implement Search for friends by name, must add search bar on navigation for all pages. <br />
 
 *Yu-Kai: working on the comments to show up
+**Troy
 
 
 
