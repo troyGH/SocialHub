@@ -24,28 +24,41 @@
 <script src="js/bootstrap.min.js"></script>
  
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
-    <script>
-                     window.onload = function() { 
-						$.get("php/getprofileinfo.php");
-						$.ajax({
-							 url: 'php/check.php',
-							 success: function (response) {
-							 var data = JSON.parse(response);
-								if(data.auth == true){
-									$('#username').html(data.fname + " " +data.lname);
-									$('#gender').html(" " + data.gender);
-									$('#age').html(" " + data.age);
-									$('#city').html(" " + data.city);
-									$('#state').html(" " + data.state);
-									$('#occupation').html(" " + data.occupation);
-									$('#interests').html(" " + data.interests);									
-								}else{
-									window.location.href = 'index.html';
-								}
-							}	
-						}); 
-					};
-    </script>
+ <script>
+ 
+    function getAboutMe(id){ 
+		$.post("php/getaboutme.php", {uid: id, isHome: true},
+		function(data){
+			var list = JSON.parse(data);
+			updateAboutMe(list);
+		});
+	}
+		
+	function updateAboutMe(data){
+		$('#gender').html(" " + data.gender);
+		$('#age').html(" " + data.age);
+		$('#city').html(" " + data.city);
+		$('#state').html(" " + data.state);
+		$('#occupation').html(" " + data.occupation);
+		$('#interests').html(" " + data.interests);	
+	}
+		
+	window.onload = function(){
+		$.ajax({
+			url: 'php/check.php',
+			success: function (response) {
+			var data = JSON.parse(response);
+			if(data.auth == true){
+				$('#username').html(data.fname + " " + data.lname);
+				getAboutMe(data.uid);
+			}
+			else{
+				window.location.href = 'index.html';
+			}
+		}	
+		}); 
+	};
+</script>
 </head>
 <body>
     <!-- navbar-->
@@ -71,7 +84,6 @@
                   <li><a href="profileindex.html">Profile</a></li>
                   <li class="active"><a href="profilesettings.html">Edit Profile</a></li>
                   <li><a href="friends.html">Friends</a></li> 
-                  <li><a href="#">Comments</a></li> 
                   <li class="divider"></li>
                   <li><a href="#" id="logout">Sign Out</a></li> 
                     <script>
@@ -113,7 +125,7 @@
 		  </div>
 		</div>
 		
-		<div class="col-sm-7">
+		<div class="col-sm-9">
 		  <div class="row">
 			<div class="col-sm-12">
 			  <div class="panel panel-default text-left">
@@ -126,13 +138,13 @@
 							<div class="col-xs-9">
 								<div class="btn-group" data-toggle="buttons">
 									<label class="btn btn-default">
-										<input type="radio" name="gender" value="male" /> Male
+										<input type="radio" name="gender" value="Male" /> Male
 									</label>
 									<label class="btn btn-default">
-										<input type="radio" name="gender" value="female" /> Female
+										<input type="radio" name="gender" value="Female" /> Female
 									</label>
 									<label class="btn btn-default active">
-										<input type="radio" name="gender" value="other" /> Other
+										<input type="radio" name="gender" value="Other" /> Other
 									</label>
 								</div>
 							</div>
@@ -186,31 +198,8 @@
 		 </div>
 		  
 		  
-		<div class="col-sm-2 well">
-			<h3>Friends</h3>
-			<hr> 
-			<div class="well">
-			<p><a href="#">Friend 1</a></p>
-			</div>
-			<div class="well">
-			<p><a href="#">Friend 2</a></p>
-			</div>
-			<div class="well">
-			<p><a href="#">Friend 3</a></p>
-			</div>
-			<div class="well">
-			<p><a href="#">Friend 4</a></p>
-			</div>
-			<div class="well">
-			<p><a href="#">Friend 5</a></p>
-			</div>
-			<div class="well">
-			<p><a href="#">Friend 6</a></p>
-			</div>
-		  </div>
 		</div>
-	  </div>
-	</div>
+		</div>
 	
 	<footer class="container-fluid text-center">
 	  <p><p>&copy; SJSU CS174 Spring 2016 Project. All rights reserved.</p>

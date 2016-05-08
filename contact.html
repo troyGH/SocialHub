@@ -65,7 +65,18 @@
                   <li><a href="#">Friends</a></li> 
                   <li><a href="#">Comments</a></li> 
                   <li class="divider"></li>
-                  <li><a href="#">Sign Out</a></li> 
+                  <li><a href="#" id="logout">Sign Out</a></li> 
+                    <script>
+                     $("#logout").click(function() {
+            $.ajax({
+				url: 'php/signout.php',
+				success: function (response) {
+				if(response == 'pass')
+					window.location.href = 'index.html';
+        }
+    });
+        });
+				</script>
                 </ul>
               </li>
           </ul>

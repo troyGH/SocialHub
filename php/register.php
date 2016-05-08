@@ -20,7 +20,7 @@ try{
 			$uid = $conn->lastInsertId();
 			
 		 
-			$stmt = $conn->prepare("INSERT INTO `profile`(`Gender`, `Age`, `City`, `State`, `Occupation`, `Interests`) VALUES ('Other',0,'San Jose','CA','Student','Computers');");
+			$stmt = $conn->prepare("INSERT INTO `profile`(`Gender`, `Age`, `City`, `State`, `Occupation`, `Interests`) VALUES ('Other',0,'','','','');");
 			$stmt->execute();
 		 
 			$pid = $conn->lastInsertId();

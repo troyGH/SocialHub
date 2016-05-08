@@ -16,19 +16,24 @@ try{
     
 	$pid = $_SESSION['ProfileID'];
 
-	$stmt = $conn->prepare("UPDATE profile SET ProfileID = '$pid',Gender= '$gender',
-													Age='$age',City='$city',State='$state',
-													Occupation='$occupation',Interests='$interests' 
-													WHERE ProfileID = '$pid'");
+	$stmt = $conn->prepare("UPDATE profile 
+							SET Gender = IF('$gender' = '', Gender, '$gender'),
+								Age = IF('$age' = '', Age, '$age'),
+								City = IF('$city' = '', City, '$city'),
+								State = IF('$state' = '', State, '$state'),
+								Occupation = IF('$occupation' = '', Occupation, '$occupation'),
+								Interests = IF('$interests' = '', Interests, '$interests')
+							WHERE ProfileID = '$pid'");
+						
 		$status = $stmt->execute();
 		
 		
-		$_SESSION['Gender'] = $gender;
-		$_SESSION['Age']= $age;
-		$_SESSION['City']= $city;
-		$_SESSION['State']= $state;
-		$_SESSION['Occupation']= $occupation;
-		$_SESSION['Interests']= $interests;
+		$_SESSION['Gender'] = $status['Gender'];
+		$_SESSION['Age']= $status['Age'];
+		$_SESSION['City']= $status['City'];
+		$_SESSION['State']= $status['State'];
+		$_SESSION['Occupation']= $status['Occupation'];
+		$_SESSION['Interests']= $status['Interests'];
 		
 		header("Location: ../profileindex.html");
 }
