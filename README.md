@@ -8,7 +8,7 @@ TO DO: <br />
 5. Check if user is already friends, if so, no need for "Add Friend" button on profile.php <br />
 6. Generate fake data for database & export for .sql dump <br />
 
-**Yu-Kai: 6 <br />
+**Yu-Kai: 5 <br />
 **Troy: 2 <br />
 
 
