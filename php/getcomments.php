@@ -8,7 +8,7 @@ try{
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	//pid should actually be uid but for some reason i kept getting an error with just a different variable name...
-    $uid = $_POST['pid'];
+    $uid = $_POST['uid'];
 	
 	$stmt = $conn->prepare("SELECT Comment, FirstName, LastName, senderrecievercomment.SenderID 
 							FROM comment, profilecomment, senderrecievercomment, user, userprofile 
