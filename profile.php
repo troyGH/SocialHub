@@ -138,11 +138,10 @@
 	}	
 	
 	function checkComment(){
-				var commentText = $('#commenttext').val();
-				if(!$.trim(commentText)) {
-					alert("Pleae enter a comment first!");
-					return false;
-				}
+		var commentText = $('#commenttext').val();
+		if(!$.trim(commentText)) 
+			return false;
+				
 	}
 
 	window.onload = function(){
