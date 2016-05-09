@@ -1,9 +1,7 @@
-# CS174_Project
 # SocialHub - Classic Social Networking Site
 # Author - Troy Nguyen, Vinay Ponnaganti, Aiden Nguyen, Yu-Kai Huang 
-# This project is for the use of SJSU CS174 Spring 2016 Project. All rights reserved.
-
-Our goal is to develop a classic social networking site, such as Myspace.com.
+This project is for the use of SJSU CS174 Spring 2016 Project. All rights reserved.<br />
+Our goal is to develop a classic social networking site, such as Myspace.com. <br />
 
 WORKING FEATURES: <br />
 1. Login & Registration. <br />
