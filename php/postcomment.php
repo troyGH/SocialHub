@@ -3,7 +3,7 @@
 	session_start();
 
 	$uid = $_SESSION["UserID"];
-	//$fid = $_GET["id"];
+	$fid = $_POST["friendId"];
 
 	$commenttext = filter_var($_POST['commenttext'], FILTER_SANITIZE_STRING);
 
@@ -16,11 +16,11 @@
 
 		$pid = $con->lastInsertId();
 
-		$query = "INSERT INTO profilecomment(ProfileID, CommentID) VALUES ('$uid', '$pid')";
+		$query = "INSERT INTO profilecomment(ProfileID, CommentID) VALUES ('$pid', '$uid')";
 		$result = $con->query($query);
 
-		//$query = "INSERT INTO senderrecievercomment(CommentID, SenderID, RecieverID) VALUES ('$pid', '$uid', '$fid')";
-		//$result = $con->query($query);
+		$query = "INSERT INTO senderrecievercomment(CommentID, SenderID, RecieverID) VALUES ('$pid', '$uid', '$fid')";
+		$result = $con->query($query);
 
 	} catch(PDOException $ex) {
     echo 'ERROR: ' . $ex->getMessage();

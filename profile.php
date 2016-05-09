@@ -223,11 +223,12 @@
 						<div class="form-group text-right">
 							  <textarea class="form-control" rows="5" name="commenttext"></textarea>
 						</div>
-						
 						<div class="form-group last">
 							<div class="col-sm-offset-3 col-sm-9">
 								<button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
 								<button type="reset" class="btn btn-default btn-sm">Reset</button>
+								<input type="hidden" name="friendId" value="<?php echo $_GET['id']; ?>">
+
 							</div>
 						</div>
 						
