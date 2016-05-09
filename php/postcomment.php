@@ -4,59 +4,31 @@
 
 	$uid = $_SESSION["UserID"];
 	$fid = $_POST["friendId"];
-
-	$commenttext = filter_var($_POST['commenttext'], FILTER_SANITIZE_STRING);
+	$commenttext = $_POST['commenttext'];
 
 	try {
-		$con = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
-    	$con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
+    	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		
-		$query = "INSERT INTO comment(Comment) VALUES ('$commenttext')";
-		$result = $con->query($query);
+		
+		$stmt = $conn->prepare("INSERT INTO comment (Comment) VALUES ('$commenttext');");
+		$stmt->execute();
 
-		$pid = $con->lastInsertId();
-
-		$query = "INSERT INTO profilecomment(ProfileID, CommentID) VALUES ('$pid', '$uid')";
-		$result = $con->query($query);
-
-		$query = "INSERT INTO senderrecievercomment(CommentID, SenderID, RecieverID) VALUES ('$pid', '$uid', '$fid')";
-		$result = $con->query($query);
+		$cid = $conn->lastInsertId();
+		
+		$stmt = $conn->prepare("INSERT INTO `senderrecievercomment`(`CommentID`, `SenderID`, `RecieverID`) 
+								VALUES ($cid,$uid,$fid)");
+		$stmt->execute();
+		
+		$result = $conn->prepare("SELECT ProfileID FROM `userprofile` WHERE userprofile.UserID = $fid");
+		$result->execute();
+		$pid = $result->fetch();
+		
+		$stmt = $conn->prepare("INSERT INTO profilecomment (`ProfileID`, `CommentID`) VALUES (".$pid['ProfileID'].", $cid)");
+		$stmt->execute();
+		
+		header("Location: ../profile.php?id=$fid");
 
 	} catch(PDOException $ex) {
     echo 'ERROR: ' . $ex->getMessage();
 }
-
-/* STUFF FROM PROFILE.PHP
-function newComment(id){
-			var commentText = $('#commentbox').val();
-			if(!$.trim(commentText)) {
-				alert("Pleae enter a comment first!");
-				return;
-			}
-			else{
-			$.ajax({
-				url: 'php/postcomment.php',
-				type: 'POST',
-				data: {uid: id, comment: commentbox},
-				datatype: 'html',
-				success: function(data) {
-					var list = JSON.parse(data);
-					list.forEach(function(i) {
-					updateComments(i);
-				});
-				}
-			})
-		}
-
-		<div class="form-group text-right">
-							  <textarea class="form-control" rows="5" id="commentbox"></textarea>
-						</div>
-						
-						<div class="form-group last">
-							<div class="col-sm-offset-3 col-sm-9">
-								<button type="button" onclick="return newComment(<?php echo $_GET['id']; ?>)" class="btn btn-primary btn-sm">Post Comment</button>
-								<button type="reset" class="btn btn-default btn-sm">Reset</button>
-							</div>
-						</div>
-						*/
-?>
