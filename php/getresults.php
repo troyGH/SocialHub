@@ -8,7 +8,7 @@ try{
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
     $name = $_POST['name'];
-	
+
 	$stmt = $conn->prepare("SELECT UserID, FirstName, LastName 
 							FROM `user` 
 							WHERE user.FirstName =  '$name' 
