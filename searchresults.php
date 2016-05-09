@@ -134,11 +134,13 @@
               
             <li class="dropdown" id="dropdownmenu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>      
+					<span id="requests-indicator" class="badge badge-notify" style="color:white; background-color: red;"></span>
+                    <span class="glyphicon glyphicon-user"></span>
+					<span class="caret"></span></a>      
                 <ul class="dropdown-menu">
                   <li><a href="profileindex.html">Profile</a></li>
                   <li><a href="profilesettings.html">Edit Profile</a></li>
-                  <li><a href="friends.html">Friends</a></li> 
+                  <li><a href="friends.html"><span id="dropdown-indicator" class="badge badge-notify" style="color:white; background-color: red;"></span>Friends</a></li> 
                   <li class="divider"></li>
                   <li><a href="#" id="logout">Sign Out</a></li> 
                     <script>
@@ -151,7 +153,7 @@
         }
     });
         });
-		</script>
+				</script>
                 </ul>
               </li>
           </ul>
