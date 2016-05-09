@@ -62,20 +62,27 @@
 </head>
 <body>
     <!-- navbar-->
+
+
     <nav class="navbar navbar-inverse">
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
+       <div class="navbar-header col-md-7">
             <a class="navbar-brand" href="index.html" >SocialHub</a>
      
-        <div class="input-group col-md-5">
+     	 <!--<form class="navbar-form" role="search" method="POST" action="searchresults.php" onsubmit="location.href='/searchresults.php?name=' + '\'' + document.getElementById('search').value + '\'';"> -->	
+        	<div class="input-group">
 			<input type="text" class="search-query form-control" id="search" placeholder="Search" />
 			<span class="input-group-btn">
-				<button class="btn btn-danger" type="button" onclick="location.href='/searchresults.php?name=' + '\'' + document.getElementById('search').value + '\'';">
-					<span class=" glyphicon glyphicon-search"></span>
+				<button class="btn btn-default" onclick="location.href='/searchresults.php?name=' + '\'' + document.getElementById('search').value + '\'';">
+					<span class="glyphicon glyphicon-search">
+						<span class="sr-only">Search</span>
+					</span>
 				</button>
-				</span>
+			</span>
 		</div>
+	<!-- </form> -->
+</div>
 		
     
         <!-- Collect the nav links, forms, and other content for toggling -->
