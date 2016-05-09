@@ -67,9 +67,19 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <a class="navbar-brand" href="index.html" >SocialHub</a>
-        </div>
+     
+        <div class="input-group col-md-5">
+			<input type="text" class="search-query form-control" id="search" placeholder="Search" />
+			<span class="input-group-btn">
+				<button class="btn btn-danger" type="button" onclick="location.href='/searchresults.php?name=' + '\'' + document.getElementById('search').value + '\'';">
+					<span class=" glyphicon glyphicon-search"></span>
+				</button>
+				</span>
+		</div>
+		</div>
     
         <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="col-md-5">
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="profileindex.html"><span class="glyphicon glyphicon-home"></span></a></li>
@@ -102,6 +112,7 @@
           </ul>
           
         </div><!-- /.navbar-collapse -->
+    </div>
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
 	  
