@@ -155,8 +155,7 @@
 		   <div class="panel panel-default">  
 			<div class="panel-heading">
 						<ul class="nav nav-pills nav-justified">
-							<li class="active" id="FriendList-tab"><a href="#" id="ListLink">Friend List</a></li>
-							<li id="FriendRequest-tab"><a href="#" id="Requestlink">Friend Request</a></li>
+							<li class="active" id="FriendList-tab"><a href="#" id="ListLink">Results</a></li>
 						</ul>
 			</div>
 			<div class="panel-body">
@@ -168,18 +167,7 @@
 					
 				
 				</form>
-			
-				<form class="form-horizontal" id="FriendRequest-form" role="form" method="POST" action="#" style="display: none;">
-							<center>
-							<div class = "col-sm-12" id="RequestList"></div>
-							</center>
-						
-							
-							<div class="form-group">
-					
-							</div>
-				</form>
-				
+	
 			</div>
 		   </div>
 		</div>
