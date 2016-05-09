@@ -111,9 +111,31 @@
 			if(data.uid == id){
 				$('#comment-box').hide();
 			}
+			updateNotifications(data.uid);	
 		}	
 		});	
 	}
+	
+	function updateNotifications(id){
+		var count = 0;
+		$.post("php/getRequest.php",{pid: id},
+			function(data){
+				var list = JSON.parse(data);
+				
+				list.forEach(function(i) {
+					count++;
+				});
+				
+				if(list){
+					$('#requests-indicator').text(count);
+					$('#dropdown-indicator').text(count);
+				}
+				else{
+					$('#requests-indicator').hide();
+					$('#dropdown-indicator').hide();
+				}
+			});
+	}	
 	
 	window.onload = function(){
 		var uid = <?php echo $_GET['id']; ?>;
@@ -131,7 +153,7 @@
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.html" >SocialHub</a>
+            <a class="navbar-brand" href="profileindex.html" >SocialHub</a>
         </div>
     
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -144,11 +166,13 @@
               
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>      
+                    <span class="glyphicon glyphicon-user"></span>
+					<span id="requests-indicator" class="badge badge-notify" style="color:white; background-color: red;"></span>
+					<span class="caret"></span></a>      
                 <ul class="dropdown-menu">
                   <li><a href="profileindex.html">Profile</a></li>
                   <li><a href="profilesettings.html">Edit Profile</a></li>
-                  <li><a href="friends.html">Friends</a></li> 
+                  <li><a href="friends.html"><span id="dropdown-indicator" class="badge badge-notify" style="color:white; background-color: red;"></span>Friends</a></li> 
                   <li class="divider"></li>
                   <li><a href="#" id="logout">Sign Out</a></li> 
                     <script>
@@ -218,17 +242,17 @@
 				    
 				  <div class="row" id="comment-box">
 					<div class="col-sm-12">
-					<form class="form-horizontal" id="comment-form" role="form" method="POST" action="php/postcomment.php" >
+					<form class="form-horizontal" id="comment-form" role="form" method="POST" action="php/postcomment.php">
 						
+						<input type="hidden" name="friendId" value="<?php echo $_GET['id']; ?>">
 						<div class="form-group text-right">
 							  <textarea class="form-control" rows="5" name="commenttext"></textarea>
 						</div>
+						
 						<div class="form-group last">
 							<div class="col-sm-offset-3 col-sm-9">
 								<button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
 								<button type="reset" class="btn btn-default btn-sm">Reset</button>
-								<input type="hidden" name="friendId" value="<?php echo $_GET['id']; ?>">
-
 							</div>
 						</div>
 						

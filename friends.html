@@ -48,18 +48,26 @@
 	}
 	
 	function getRequest(id){
+		var count = 0;
 		$.post("php/getRequest.php",{pid: id},
 		function(data){
 			var list = JSON.parse(data);
 			list.forEach(function(i) {
 				updateRequest(i);
+				count++;
 			});
+			
+			if(list)
+				$('#requests-indicator').text(count);
+			else
+				$('#requests-indicator').hide();
+			
 		});
 	}		
 	
 	function updateRequest(request){
 				$('#RequestList').append('<div class="row"><div class="col-sm-6"><div class="well text-center">'
-					+" "+request.FirstName+" "+ request.LastName+"</div></div>"
+					+" "+"<a href='profile.php?id=" + request.UserID + "'>" + request.FirstName+" "+ request.LastName + "</a></div></div>"
 					+ '<div class="col-sm-4"><div class="well">'
 					+"<button type='button'"+ 'class="btn btn-primary btn-sm"' + "onclick='Comfirmrequest(" 
 					+ '"' + request.UserID + '"' + ")' >Yes </button>&nbsp " 
@@ -77,8 +85,6 @@
 						data:dataString,
 						url: 'php/addFriend.php',
 						success: function (response) {
-						//if(response == 'pass')
-						alert(response);
 						window.location.reload();
 						}
 					});
@@ -94,7 +100,6 @@
 				data:dataString,
 				url: 'php/denyFriend.php',
 				success: function (response) {
-					alert(response);
 					window.location.reload();
 			}
 		});
@@ -173,7 +178,7 @@
 			<div class="panel-heading">
 						<ul class="nav nav-pills nav-justified">
 							<li class="active" id="FriendList-tab"><a href="#" id="ListLink">Friend List</a></li>
-							<li id="FriendRequest-tab"><a href="#" id="Requestlink">Friend Request</a></li>
+							<li id="FriendRequest-tab"><a href="#" id="Requestlink">Friend Request<span id="requests-indicator" class="badge badge-notify" style="color:white; background-color: red;"></span></a></li>
 						</ul>
 			</div>
 			<div class="panel-body">
@@ -185,7 +190,7 @@
 					
 				
 				</form>
-			
+				
 				<form class="form-horizontal" id="FriendRequest-form" role="form" method="POST" action="#" style="display: none;">
 							<center>
 							<div class = "col-sm-12" id="RequestList"></div>
