@@ -47,26 +47,38 @@
 		$('#FriendList').append(a);
 		$('#FriendList').append('</p>');
 	}
-
-   function getFriends(id){
-		$.post("php/getfriends.php",{uid: id},
-		function(data){
-			var list = JSON.parse(data);
-			list.forEach(function(i) {
-				updateFriends(i);
+	function isLoggedIn(){
+		$.ajax({
+			url: 'php/check.php',
+			success: function (response) {
+			var data = JSON.parse(response);
+			if(data.auth == false)
+				$('#dropdownmenu').remove();
+			else
+				updateNotifications(data.uid);	
+			}	
+		});	
+	}
+	function updateNotifications(id){
+		var count = 0;
+		$.post("php/getRequest.php",{pid: id},
+			function(data){
+				var list = JSON.parse(data);
+				
+				list.forEach(function(i) {
+					count++;
+				});
+				
+				if(list){
+					$('#requests-indicator').text(count);
+					$('#dropdown-indicator').text(count);
+				}
+				else{
+					$('#requests-indicator').hide();
+					$('#dropdown-indicator').hide();
+				}
 			});
-		});
-	}		
-	
-	function updateFriends(friend){
-		var a = $('<a />');
-		$('#FriendList').append('<p>');
-		a.attr('href', "profile.php?id="+ friend.FriendsID);
-		a.text(friend.FirstName + " " + friend.LastName);
-		$('#FriendList').append(a);
-		$('#FriendList').append('</p>');
 	}	
-
 	function checksearch(){
 		var Text = document.getElementById('search').value;
 
@@ -82,6 +94,7 @@
 	window.onload = function(){
 		var name = <?php echo $_GET['name'] ; ?> ;
 		getSearchResults(name);
+		isLoggedIn();
 		
 	};//window.onload 
 	
@@ -114,16 +127,16 @@
         <div class="col-md-5">
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="profileindex.html"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>
             <li><a href="aboutus.html">About</a></li>
             <li><a href="news.html">News</a></li>
             <li><a href="contact.html">Contact</a></li>
               
-            <li class="dropdown active">
+            <li class="dropdown" id="dropdownmenu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <span class="glyphicon glyphicon-user"></span><span class="caret"></span></a>      
                 <ul class="dropdown-menu">
-                  <li class="active"><a href="profileindex.html">Profile</a></li>
+                  <li><a href="profileindex.html">Profile</a></li>
                   <li><a href="profilesettings.html">Edit Profile</a></li>
                   <li><a href="friends.html">Friends</a></li> 
                   <li class="divider"></li>
@@ -148,48 +161,18 @@
    
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
-	  
-	<div class="container text-center">    
-	  <div class="row">
-		<div class="col-md-12 " id="signin-form-index">
-		   <div class="panel panel-default">  
+	<div class="container">
+
+	  <div class="panel panel-primary text-center">
 			<div class="panel-heading">
-						<ul class="nav nav-pills nav-justified">
-							<li class="active" id="FriendList-tab"><a href="#" id="ListLink">Results</a></li>
-						</ul>
+				<h4> Results </h4> 
 			</div>
-			<div class="panel-body">
-				<form class="form-horizontal" id="FriendList-form" role="form" method="POST" action="#" style="display: block;">
-							<center>
-							<div class = "col-sm-12" id="FriendList">
-							</div>
-							</center>
-					
-				
-				</form>
-	
+		<div class="panel-body">
+		<div class = "col-sm-12" id="FriendList">
 			</div>
-		   </div>
 		</div>
-	  </div>
-	</div>
-	
-	<!-- tabbed forms script -->
-	<script>
-    $(document).ready( function(){$('#ListLink').click(function(e) {
-		$("#FriendList-form").delay(100).fadeIn(100);
- 		$("#FriendRequest-form").fadeOut(100);
-		$('#FriendRequest-tab').removeClass('active');
-		$('#FriendList-tab').addClass('active');
-	});
-	$('#Requestlink').click(function(e) {
-		$("#FriendRequest-form").delay(100).fadeIn(100);
- 		$("#FriendList-form").fadeOut(100);
-		$('#FriendList-tab').removeClass('active');
-		$('#FriendRequest-tab').addClass('active');
-	});	});
-	</script>
-	
+	</div>  
+</div>
 	<footer class="container-fluid text-center">
 	  <p><p>&copy; SJSU CS174 Spring 2016 Project. All rights reserved.</p>
 	</footer>
