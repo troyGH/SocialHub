@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2016 at 07:52 AM
--- Server version: 10.1.9-MariaDB
+-- Generation Time: May 08, 2016 at 11:58 PM
+-- Server version: 5.7.9
 -- PHP Version: 5.6.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,10 +28,19 @@ USE `social_network`;
 -- Table structure for table `comment`
 --
 
-CREATE TABLE `comment` (
-  `CommentID` bigint(20) NOT NULL,
-  `Comment` longtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE IF NOT EXISTS `comment` (
+  `CommentID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Comment` longtext NOT NULL,
+  PRIMARY KEY (`CommentID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`CommentID`, `Comment`) VALUES
+(1, 'Test Comment');
 
 -- --------------------------------------------------------
 
@@ -39,9 +48,12 @@ CREATE TABLE `comment` (
 -- Table structure for table `friendship`
 --
 
-CREATE TABLE `friendship` (
+DROP TABLE IF EXISTS `friendship`;
+CREATE TABLE IF NOT EXISTS `friendship` (
   `UserID` bigint(20) NOT NULL,
-  `FriendsID` bigint(20) NOT NULL
+  `FriendsID` bigint(20) NOT NULL,
+  KEY `UserID` (`UserID`),
+  KEY `FriendsID` (`FriendsID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -56,7 +68,15 @@ INSERT INTO `friendship` (`UserID`, `FriendsID`) VALUES
 (26, 25),
 (25, 26),
 (26, 27),
-(27, 26);
+(27, 26),
+(23, 25),
+(25, 23),
+(23, 27),
+(27, 23),
+(28, 26),
+(26, 28),
+(28, 27),
+(27, 28);
 
 -- --------------------------------------------------------
 
@@ -64,15 +84,17 @@ INSERT INTO `friendship` (`UserID`, `FriendsID`) VALUES
 -- Table structure for table `profile`
 --
 
-CREATE TABLE `profile` (
-  `ProfileID` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `profile`;
+CREATE TABLE IF NOT EXISTS `profile` (
+  `ProfileID` bigint(20) NOT NULL AUTO_INCREMENT,
   `Gender` enum('Male','Female','Other','') NOT NULL,
   `Age` tinyint(3) NOT NULL,
   `City` varchar(30) NOT NULL,
   `State` varchar(30) NOT NULL,
   `Occupation` varchar(65) NOT NULL,
-  `Interests` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Interests` text NOT NULL,
+  PRIMARY KEY (`ProfileID`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `profile`
@@ -82,7 +104,11 @@ INSERT INTO `profile` (`ProfileID`, `Gender`, `Age`, `City`, `State`, `Occupatio
 (12, 'Female', 4, 'aa', 'aa', 'aa', 'aa'),
 (13, 'Male', 7, 'cc', 'cc', 'cc', 'cc'),
 (14, 'Female', 2, 'bb', 'bb', 'bb', 'bb'),
-(15, 'Female', 1, 'dd', 'dd', 'dd', 'dd');
+(15, 'Female', 1, 'dd', 'dd', 'dd', 'dd'),
+(16, 'Other', 0, '', '', '', ''),
+(17, 'Other', 0, '', '', '', ''),
+(18, 'Other', 0, '', '', '', ''),
+(19, 'Male', 25, 'Test', 'Test', 'Test', 'Test');
 
 -- --------------------------------------------------------
 
@@ -90,10 +116,20 @@ INSERT INTO `profile` (`ProfileID`, `Gender`, `Age`, `City`, `State`, `Occupatio
 -- Table structure for table `profilecomment`
 --
 
-CREATE TABLE `profilecomment` (
+DROP TABLE IF EXISTS `profilecomment`;
+CREATE TABLE IF NOT EXISTS `profilecomment` (
   `ProfileID` bigint(20) NOT NULL,
-  `CommentID` bigint(11) NOT NULL
+  `CommentID` bigint(11) NOT NULL,
+  KEY `ProfileID` (`ProfileID`),
+  KEY `CommentID` (`CommentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `profilecomment`
+--
+
+INSERT INTO `profilecomment` (`ProfileID`, `CommentID`) VALUES
+(12, 1);
 
 -- --------------------------------------------------------
 
@@ -101,17 +137,11 @@ CREATE TABLE `profilecomment` (
 -- Table structure for table `request`
 --
 
-CREATE TABLE `request` (
+DROP TABLE IF EXISTS `request`;
+CREATE TABLE IF NOT EXISTS `request` (
   `UserID` bigint(20) NOT NULL,
   `FriendID` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `request`
---
-
-INSERT INTO `request` (`UserID`, `FriendID`) VALUES
-(28, 27);
 
 -- --------------------------------------------------------
 
@@ -119,11 +149,22 @@ INSERT INTO `request` (`UserID`, `FriendID`) VALUES
 -- Table structure for table `senderrecievercomment`
 --
 
-CREATE TABLE `senderrecievercomment` (
+DROP TABLE IF EXISTS `senderrecievercomment`;
+CREATE TABLE IF NOT EXISTS `senderrecievercomment` (
   `CommentID` bigint(20) NOT NULL,
   `SenderID` bigint(20) NOT NULL,
-  `RecieverID` bigint(20) NOT NULL
+  `RecieverID` bigint(20) NOT NULL,
+  KEY `CommentID` (`CommentID`),
+  KEY `SenderID` (`SenderID`),
+  KEY `RecieverID` (`RecieverID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `senderrecievercomment`
+--
+
+INSERT INTO `senderrecievercomment` (`CommentID`, `SenderID`, `RecieverID`) VALUES
+(1, 23, 25);
 
 -- --------------------------------------------------------
 
@@ -131,13 +172,15 @@ CREATE TABLE `senderrecievercomment` (
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
-  `UserID` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `UserID` bigint(20) NOT NULL AUTO_INCREMENT,
   `Email` varchar(65) NOT NULL,
   `Password` varchar(65) NOT NULL,
   `FirstName` varchar(65) NOT NULL,
-  `LastName` varchar(65) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `LastName` varchar(65) NOT NULL,
+  PRIMARY KEY (`UserID`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
@@ -148,7 +191,10 @@ INSERT INTO `user` (`UserID`, `Email`, `Password`, `FirstName`, `LastName`) VALU
 (25, 'aa@aa.com', 'aa', 'aa', 'aa'),
 (26, 'cc@cc.com', 'cc', 'cc', 'cc'),
 (27, 'bb@bb.com', 'bb', 'bb', 'bb'),
-(28, 'dd@dd.com', 'dd', 'dd', 'dd');
+(28, 'dd@dd.com', 'dd', 'dd', 'dd'),
+(29, '2222@Gmail.com', '5555555', '2222', '22222'),
+(30, '222@m.com', '111111', 'dasdd', 'sdfasf'),
+(31, '222222@gmail.com', '666666', '22222', '22222');
 
 -- --------------------------------------------------------
 
@@ -156,9 +202,12 @@ INSERT INTO `user` (`UserID`, `Email`, `Password`, `FirstName`, `LastName`) VALU
 -- Table structure for table `userprofile`
 --
 
-CREATE TABLE `userprofile` (
+DROP TABLE IF EXISTS `userprofile`;
+CREATE TABLE IF NOT EXISTS `userprofile` (
   `UserID` bigint(20) NOT NULL,
-  `ProfileID` bigint(20) NOT NULL
+  `ProfileID` bigint(20) NOT NULL,
+  KEY `UserID` (`UserID`),
+  KEY `ProfileID` (`ProfileID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -169,73 +218,12 @@ INSERT INTO `userprofile` (`UserID`, `ProfileID`) VALUES
 (25, 12),
 (26, 13),
 (27, 14),
-(28, 15);
+(28, 15),
+(29, 16),
+(30, 17),
+(31, 18),
+(23, 19);
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `comment`
---
-ALTER TABLE `comment`
-  ADD PRIMARY KEY (`CommentID`);
-
---
--- Indexes for table `friendship`
---
-ALTER TABLE `friendship`
-  ADD KEY `UserID` (`UserID`),
-  ADD KEY `FriendsID` (`FriendsID`);
-
---
--- Indexes for table `profile`
---
-ALTER TABLE `profile`
-  ADD PRIMARY KEY (`ProfileID`);
-
---
--- Indexes for table `profilecomment`
---
-ALTER TABLE `profilecomment`
-  ADD KEY `ProfileID` (`ProfileID`),
-  ADD KEY `CommentID` (`CommentID`);
-
---
--- Indexes for table `senderrecievercomment`
---
-ALTER TABLE `senderrecievercomment`
-  ADD KEY `CommentID` (`CommentID`),
-  ADD KEY `SenderID` (`SenderID`),
-  ADD KEY `RecieverID` (`RecieverID`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`UserID`);
-
---
--- Indexes for table `userprofile`
---
-ALTER TABLE `userprofile`
-  ADD KEY `UserID` (`UserID`),
-  ADD KEY `ProfileID` (`ProfileID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `profile`
---
-ALTER TABLE `profile`
-  MODIFY `ProfileID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `UserID` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- Constraints for dumped tables
 --
