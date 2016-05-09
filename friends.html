@@ -141,23 +141,22 @@
     <nav class="navbar navbar-inverse">
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <a class="navbar-brand" href="index.html" >SocialHub</a>
-			
-			<!--<form class="navbar-form" role="search" method="POST" action="searchresults.php" onsubmit="location.href='/searchresults.php?name=' + '\'' + document.getElementById('search').value + '\'';"> -->	
+       <div class="navbar-header col-md-7">
+            <a class="navbar-brand" href="profileindex.html">SocialHub</a>
+     
         	<div class="input-group">
 			<input type="text" class="search-query form-control" id="search" placeholder="Search" style="margin-top:7px;"/>
 			<span class="input-group-btn">
-				<button class="btn btn-default" onclick="return checksearch()" style="margin-top:7px;">
+				<button class="btn btn-default" onclick="location.href='/searchresults.php?name=' + '\'' + document.getElementById('search').value + '\'';" style="margin-top:7px;">
 					<span class="glyphicon glyphicon-search">
 						<span class="sr-only">Search</span>
 					</span>
 				</button>
 			</span>
-			</div>
-		<!-- </form> -->
-        </div>
+		</div>
+	</div>
     
+		<div class="col-md-5">
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
@@ -193,6 +192,7 @@
           </ul>
           
         </div><!-- /.navbar-collapse -->
+		</div>
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
 	  
