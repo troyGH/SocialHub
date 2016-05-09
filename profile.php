@@ -166,7 +166,7 @@
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
        <div class="navbar-header col-md-7">
-            <a class="navbar-brand" href="profileindex.html">SocialHub</a>
+            <a class="navbar-brand" href="index.html">SocialHub</a>
      
         	<div class="input-group">
 			<input type="text" class="search-query form-control" id="search" placeholder="Search" style="margin-top:7px;"/>
@@ -184,7 +184,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="profileindex.html"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li><a href="index.html"><span class="glyphicon glyphicon-home"></span></a></li>
             <li><a href="aboutus.html">About</a></li>
             <li><a href="news.html">News</a></li>
             <li><a href="contact.html">Contact</a></li>
