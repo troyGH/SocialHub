@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2016 at 11:58 PM
+-- Generation Time: May 09, 2016 at 02:59 AM
 -- Server version: 5.7.9
 -- PHP Version: 5.6.15
 
@@ -33,14 +33,19 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `CommentID` bigint(20) NOT NULL AUTO_INCREMENT,
   `Comment` longtext NOT NULL,
   PRIMARY KEY (`CommentID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `comment`
 --
 
 INSERT INTO `comment` (`CommentID`, `Comment`) VALUES
-(1, 'Test Comment');
+(1, 'Test Comment'),
+(2, 'Hi Jane - Tom'),
+(3, 'Testing'),
+(5, 'Taylor Swift commenting'),
+(6, 'Taylor&#39;s comment'),
+(7, 'I&#39;m John Doe');
 
 -- --------------------------------------------------------
 
@@ -101,13 +106,10 @@ CREATE TABLE IF NOT EXISTS `profile` (
 --
 
 INSERT INTO `profile` (`ProfileID`, `Gender`, `Age`, `City`, `State`, `Occupation`, `Interests`) VALUES
-(12, 'Female', 4, 'aa', 'aa', 'aa', 'aa'),
+(12, 'Female', 19, 'San Jose', 'CA', 'Singer', 'Music'),
 (13, 'Male', 7, 'cc', 'cc', 'cc', 'cc'),
-(14, 'Female', 2, 'bb', 'bb', 'bb', 'bb'),
-(15, 'Female', 1, 'dd', 'dd', 'dd', 'dd'),
-(16, 'Other', 0, '', '', '', ''),
-(17, 'Other', 0, '', '', '', ''),
-(18, 'Other', 0, '', '', '', ''),
+(14, 'Female', 24, 'Los Angeles', 'CA', 'Singer', 'Music'),
+(15, 'Male', 30, 'San Francisco', 'CA', 'Actor', 'Acting'),
 (19, 'Male', 25, 'Test', 'Test', 'Test', 'Test');
 
 -- --------------------------------------------------------
@@ -129,7 +131,12 @@ CREATE TABLE IF NOT EXISTS `profilecomment` (
 --
 
 INSERT INTO `profilecomment` (`ProfileID`, `CommentID`) VALUES
-(12, 1);
+(12, 1),
+(12, 2),
+(19, 3),
+(13, 5),
+(12, 6),
+(14, 7);
 
 -- --------------------------------------------------------
 
@@ -142,6 +149,14 @@ CREATE TABLE IF NOT EXISTS `request` (
   `UserID` bigint(20) NOT NULL,
   `FriendID` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `request`
+--
+
+INSERT INTO `request` (`UserID`, `FriendID`) VALUES
+(28, 23),
+(26, 23);
 
 -- --------------------------------------------------------
 
@@ -164,7 +179,12 @@ CREATE TABLE IF NOT EXISTS `senderrecievercomment` (
 --
 
 INSERT INTO `senderrecievercomment` (`CommentID`, `SenderID`, `RecieverID`) VALUES
-(1, 23, 25);
+(1, 23, 25),
+(2, 28, 25),
+(3, 25, 23),
+(5, 27, 26),
+(6, 27, 25),
+(7, 26, 27);
 
 -- --------------------------------------------------------
 
@@ -187,14 +207,11 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`UserID`, `Email`, `Password`, `FirstName`, `LastName`) VALUES
-(23, 'troynguyen@gmail.com', '2121', 'Troy', 'Nguyen'),
-(25, 'aa@aa.com', 'aa', 'aa', 'aa'),
-(26, 'cc@cc.com', 'cc', 'cc', 'cc'),
-(27, 'bb@bb.com', 'bb', 'bb', 'bb'),
-(28, 'dd@dd.com', 'dd', 'dd', 'dd'),
-(29, '2222@Gmail.com', '5555555', '2222', '22222'),
-(30, '222@m.com', '111111', 'dasdd', 'sdfasf'),
-(31, '222222@gmail.com', '666666', '22222', '22222');
+(23, 'troynguyen@gmail.com', '111', 'Troy', 'Nguyen'),
+(25, 'janedoe@gmail.com', '111', 'Jane', 'Doe'),
+(26, 'johndoe@gmail.com', '111', 'John', 'Doe'),
+(27, 'ts@gmail.com', '111', 'Taylor ', 'Swift'),
+(28, 'tom@gmail.com', '111', 'Tom', 'Smith');
 
 -- --------------------------------------------------------
 
@@ -219,9 +236,6 @@ INSERT INTO `userprofile` (`UserID`, `ProfileID`) VALUES
 (26, 13),
 (27, 14),
 (28, 15),
-(29, 16),
-(30, 17),
-(31, 18),
 (23, 19);
 
 --

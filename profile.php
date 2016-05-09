@@ -137,6 +137,13 @@
 			});
 	}	
 	
+	function checkComment(){
+		var commentText = $('#commenttext').val();
+		if(!$.trim(commentText)) 
+			return false;
+				
+	}
+
 	window.onload = function(){
 		var uid = <?php echo $_GET['id']; ?>;
 		getFriends(uid);
@@ -246,12 +253,12 @@
 						
 						<input type="hidden" name="friendId" value="<?php echo $_GET['id']; ?>">
 						<div class="form-group text-right">
-							  <textarea class="form-control" rows="5" name="commenttext"></textarea>
+							  <textarea class="form-control" rows="5" name="commenttext" id="commenttext"></textarea>
 						</div>
 						
 						<div class="form-group last">
 							<div class="col-sm-offset-3 col-sm-9">
-								<button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+								<button type="submit" class="btn btn-primary btn-sm" onclick="return checkComment()">Post Comment</button>
 								<button type="reset" class="btn btn-default btn-sm">Reset</button>
 							</div>
 						</div>
