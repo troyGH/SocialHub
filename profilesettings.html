@@ -42,27 +42,20 @@
 		$('#occupation').html(" " + data.occupation);
 		$('#interests').html(" " + data.interests);	
 	}
+	
+	function checksearch(){
+		var Text = document.getElementById('search').value;
 
-	function updateNotifications(id){
-		var count = 0;
-		$.post("php/getRequest.php",{pid: id},
-			function(data){
-				var list = JSON.parse(data);
-				
-				list.forEach(function(i) {
-					count++;
-				});
-				
-				if(list){
-					$('#requests-indicator').text(count);
-					$('#dropdown-indicator').text(count);
-				}
-				else{
-					$('#requests-indicator').hide();
-					$('#dropdown-indicator').hide();
-				}
-			});
-	}	
+		if(!$.trim(Text)) 
+		{
+			return false;
+		}
+		else{
+			window.location.replace ("/searchresults.php?name=" +'\''+Text+'\'');
+		}		
+	}
+	
+		
 	window.onload = function(){
 		$.ajax({
 			url: 'php/check.php',
@@ -71,7 +64,6 @@
 			if(data.auth == true){
 				$('#username').html(data.fname + " " + data.lname);
 				getAboutMe(data.uid);
-				updateNotifications(data.uid);	
 			}
 			else{
 				window.location.href = 'index.html';
@@ -88,23 +80,24 @@
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
        <div class="navbar-header col-md-7">
-            <a class="navbar-brand" href="profileindex.html">SocialHub</a>
+            <a class="navbar-brand" href="index.html" >SocialHub</a>
      
+     	 <!--<form class="navbar-form" role="search" method="POST" action="searchresults.php" onsubmit="location.href='/searchresults.php?name=' + '\'' + document.getElementById('search').value + '\'';"> -->	
         	<div class="input-group">
 			<input type="text" class="search-query form-control" id="search" placeholder="Search" style="margin-top:7px;"/>
 			<span class="input-group-btn">
-				<button class="btn btn-default" onclick="location.href='/searchresults.php?name=' + '\'' + document.getElementById('search').value + '\'';" style="margin-top:7px;">
+				<button class="btn btn-default" onclick="return checksearch()" style="margin-top:7px;">
 					<span class="glyphicon glyphicon-search">
 						<span class="sr-only">Search</span>
 					</span>
 				</button>
 			</span>
+			</div>
+		<!-- </form> -->
 		</div>
-</div>
 		
     
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="col-md-5">
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="profileindex.html"><span class="glyphicon glyphicon-home"></span></a></li>
@@ -112,14 +105,14 @@
             <li><a href="news.html">News</a></li>
             <li><a href="contact.html">Contact</a></li>
               
-            <li class="dropdown active">
+            <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-					<span id="requests-indicator" class="badge badge-notify" style="color:white; background-color: red;"></span>
                     <span class="glyphicon glyphicon-user"></span>
+					<span id="requests-indicator" class="badge badge-notify" style="color:white; background-color: red;"></span>
 					<span class="caret"></span></a>      
                 <ul class="dropdown-menu">
                   <li><a href="profileindex.html">Profile</a></li>
-                  <li class="active"><a href="profilesettings.html">Edit Profile</a></li>
+                  <li><a href="profilesettings.html">Edit Profile</a></li>
                   <li><a href="friends.html"><span id="dropdown-indicator" class="badge badge-notify" style="color:white; background-color: red;"></span>Friends</a></li> 
                   <li class="divider"></li>
                   <li><a href="#" id="logout">Sign Out</a></li> 
@@ -133,14 +126,13 @@
         }
     });
         });
-		</script>
+				</script>
                 </ul>
               </li>
           </ul>
           
         </div><!-- /.navbar-collapse -->
-    </div>
-    </div>
+   
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
 	  
