@@ -13,8 +13,12 @@ $interests = filter_var($_POST['inputInterests'], FILTER_SANITIZE_STRING);
 try{
     $conn = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-	$pid = $_SESSION['ProfileID'];
+	
+	$uid = $_SESSION['UserID'];
+	
+    $result = $conn->prepare("SELECT ProfileID FROM `userprofile` WHERE userprofile.UserID = $uid");
+	$result->execute();
+	$pid = $result->fetch();
 
 	$stmt = $conn->prepare("UPDATE profile 
 							SET Gender = IF('$gender' = '', Gender, '$gender'),
@@ -23,19 +27,12 @@ try{
 								State = IF('$state' = '', State, '$state'),
 								Occupation = IF('$occupation' = '', Occupation, '$occupation'),
 								Interests = IF('$interests' = '', Interests, '$interests')
-							WHERE ProfileID = '$pid'");
+							WHERE ProfileID = ".$pid['ProfileID']);
 						
-		$status = $stmt->execute();
+	$stmt->execute();
 		
 		
-		$_SESSION['Gender'] = $status['Gender'];
-		$_SESSION['Age']= $status['Age'];
-		$_SESSION['City']= $status['City'];
-		$_SESSION['State']= $status['State'];
-		$_SESSION['Occupation']= $status['Occupation'];
-		$_SESSION['Interests']= $status['Interests'];
-		
-		header("Location: ../profileindex.html");
+	header("Location: ../profilesettings.html");
 }
 catch(PDOException $ex) {
     echo 'ERROR: ' . $ex->getMessage();
