@@ -42,6 +42,19 @@
 		$('#occupation').html(" " + data.occupation);
 		$('#interests').html(" " + data.interests);	
 	}
+	
+	function checksearch(){
+		var Text = document.getElementById('search').value;
+
+		if(!$.trim(Text)) 
+		{
+			return false;
+		}
+		else{
+			window.location.replace ("/searchresults.php?name=" +'\''+Text+'\'');
+		}		
+	}
+	
 		
 	window.onload = function(){
 		$.ajax({
@@ -73,15 +86,15 @@
         	<div class="input-group">
 			<input type="text" class="search-query form-control" id="search" placeholder="Search" style="margin-top:7px;"/>
 			<span class="input-group-btn">
-				<button class="btn btn-default" onclick="location.href='/searchresults.php?name=' + '\'' + document.getElementById('search').value + '\'';" style="margin-top:7px;">
+				<button class="btn btn-default" onclick="return checksearch()" style="margin-top:7px;">
 					<span class="glyphicon glyphicon-search">
 						<span class="sr-only">Search</span>
 					</span>
 				</button>
 			</span>
+			</div>
+		<!-- </form> -->
 		</div>
-	<!-- </form> -->
-</div>
 		
     
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -119,7 +132,7 @@
           
         </div><!-- /.navbar-collapse -->
     </div>
-    </div>
+   
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
 	  
